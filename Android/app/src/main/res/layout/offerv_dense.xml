@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:paddingLeft="2pt"
+    android:layout_height="wrap_content">
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:id="@+id/circleLayout">
+        <ImageView
+            android:id="@+id/circleImage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/btn_circle_pressed" />
+        <TextView
+            android:id="@+id/circleImageText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/circleImage"
+            android:layout_alignTop="@+id/circleImage"
+            android:layout_alignRight="@+id/circleImage"
+            android:layout_alignBottom="@+id/circleImage"
+            android:layout_margin="1dp"
+            android:gravity="center"
+            android:text="Hello"
+            android:textSize="10dp"
+            android:textColor="#000000" />
+    </RelativeLayout>
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/circleLayout"
+        android:orientation="vertical">
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:paddingTop="2pt"
+            android:text="Nazwa restauracji"
+            android:textSize="18dp"
+            android:textColor="@color/black"
+            android:id="@+id/offerName"/>
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:paddingTop="2pt"
+            android:textSize="10dp"
+            android:text="Opis jakis dluzszy"
+            android:textColor="@color/black"
+            android:id="@+id/offerDescription"/>
+    </LinearLayout>
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:id="@+id/priceLayout">
+        <ImageView
+            android:id="@+id/priceImage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/btn_circle_normal" />
+        <TextView
+            android:id="@+id/priceImageText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/priceImage"
+            android:layout_alignTop="@+id/priceImage"
+            android:layout_alignRight="@+id/priceImage"
+            android:layout_alignBottom="@+id/priceImage"
+            android:layout_margin="1dp"
+            android:gravity="center"
+            android:text="12m"
+            android:textSize="10dp"
+            android:textColor="#000000" />
+    </RelativeLayout>
+</RelativeLayout>

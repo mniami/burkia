@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:paddingLeft="5pt"
+    android:background="@color/white"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:layout_width="40pt"
+        android:layout_height="40pt"
+        android:layout_gravity="center"
+        android:textAlignment="center"
+        android:background="@mipmap/btn_circle_pressed"
+        android:id="@+id/offerImage"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:layout_gravity="center"
+        android:paddingTop="2pt"
+        android:textSize="@dimen/abc_text_size_large_material"
+        android:textColor="@color/black"
+        android:text="Offer name"
+        android:id="@+id/offerName"/>
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:text="Description"
+            android:paddingTop="2pt"
+            android:paddingLeft="2pt"
+            android:paddingRight="2pt"
+            android:textColor="@color/black"
+            android:textSize="@dimen/abc_text_size_body_1_material"
+            android:id="@+id/offerDescription"/>
+    </LinearLayout>
+</LinearLayout>
