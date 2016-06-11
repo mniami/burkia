@@ -1,9 +1,11 @@
-package pl.guideme.burkia;
+package pl.guideme.burkia.activities;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+
+import pl.guideme.burkia.R;
 
 public class MainActivity extends AppCompatActivity {
 
