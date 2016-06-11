@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "946996679175",
+    "firebase_url": "https://project-5713946695819256395.firebaseio.com",
+    "project_id": "project-5713946695819256395",
+    "storage_bucket": "project-5713946695819256395.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:946996679175:android:c7cce491976e815a",
+        "android_client_info": {
+          "package_name": "pl.guideme.burkia"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "946996679175-hf8phvc5muuuka8uavonu7vefpa5cole.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCD49GeRhJc3PirYyRZ4KIe2CV76tiO7_o"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
