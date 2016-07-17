@@ -1,5 +1,4 @@
 <resources>
-    <string name="app_name">Burkia</string>
-    <string name="hello_world">Hello world!</string>
+    <string name="app_name">Restaurant</string>
     <string name="action_settings">Settings</string>
 </resources>

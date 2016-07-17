@@ -5,8 +5,11 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import org.androidannotations.annotations.EActivity;
+
 import pl.guideme.burkia.R;
 
+@EActivity
 public class MainActivity extends AppCompatActivity {
 
     @Override

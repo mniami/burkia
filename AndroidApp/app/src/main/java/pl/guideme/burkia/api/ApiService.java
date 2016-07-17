@@ -18,6 +18,8 @@
 package pl.guideme.burkia.api;
 
 import org.androidannotations.annotations.EBean;
+import org.apache.commons.lang3.StringUtils;
+
 import pl.guideme.burkia.configuration.AppConfig;
 import retrofit.Call;
 import retrofit.Retrofit;
@@ -25,17 +27,24 @@ import retrofit.Retrofit;
 @EBean(scope = EBean.Scope.Singleton)
 public class ApiService implements ApiServiceEndpoint {
     public static final String API_SERVICE_CONFIG_NAME = "ApiService";
+    protected static final String EMPTY_URL_ERROR = "Empty apiService URL";
 
-    private ApiServiceEndpoint apiServiceEndpoint;
+    protected ApiServiceEndpoint apiServiceEndpoint;
     private boolean initialized;
 
     public void initialize(AppConfig configuration) {
         if (initialized) {
             throw new IllegalStateException();
         }
+        String apiServiceUrl = configuration.get(API_SERVICE_CONFIG_NAME);
+
+        if (StringUtils.isEmpty(apiServiceUrl)){
+            throw new IllegalStateException(EMPTY_URL_ERROR);
+        }
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(configuration.get(API_SERVICE_CONFIG_NAME))
+                .baseUrl(apiServiceUrl)
                 .build();
+
         apiServiceEndpoint = retrofit.create(ApiServiceEndpoint.class);
         initialized = true;
     }
@@ -62,5 +71,9 @@ public class ApiService implements ApiServiceEndpoint {
             throw new IllegalStateException();
         }
         return null;
+    }
+
+    protected boolean isInitialized(){
+        return initialized;
     }
 }
