@@ -1,6 +1,2 @@
-**/.vs
-**/.idea
-**/bin/
-**/obj/
-**/packages/
-**/*.csproj.user
+Server/node_modules
+.idea

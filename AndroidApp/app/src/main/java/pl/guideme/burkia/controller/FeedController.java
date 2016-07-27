@@ -30,9 +30,10 @@ import org.androidannotations.annotations.RootContext;
 
 import java.util.UUID;
 import de.greenrobot.event.EventBus;
+import pl.guideme.burkia.AppConfigProvider;
 import pl.guideme.burkia.R;
 import pl.guideme.burkia.compat.NotificationManagerCompatProvider;
-import pl.guideme.burkia.config.DemoConfig;
+import pl.guideme.burkia.config.AppConfig;
 import pl.guideme.burkia.event.SubscriberPriority;
 import pl.guideme.burkia.event.post.DeletePostEvent;
 import pl.guideme.burkia.eventbus.EventBusProvider;
@@ -43,7 +44,7 @@ public class FeedController {
     @Bean
     protected JobManagerProvider mJobManager;
     @Bean
-    protected DemoConfig mDemoConfig;
+    protected AppConfigProvider appConfigProvider;
     @Bean
     protected EventBusProvider mEventBusProvider;
     @RootContext
@@ -76,6 +77,6 @@ public class FeedController {
 //
 //    public void sendPostAsync(String text) {
 //        mJobManager.addJobInBackground(new SaveNewPostJob(text, UUID.randomUUID().toString(),
-//                mDemoConfig.getUserId()));
+//                appConfigProvider.getUserId()));
 //    }
 }

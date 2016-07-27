@@ -17,10 +17,12 @@
 
 package pl.guideme.burkia.api;
 
+import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EBean;
 import org.apache.commons.lang3.StringUtils;
 
-import pl.guideme.burkia.configuration.AppConfig;
+import pl.guideme.burkia.AppConfigProvider;
+import pl.guideme.burkia.config.AppConfig;
 import retrofit.Call;
 import retrofit.Retrofit;
 
@@ -36,7 +38,7 @@ public class ApiService implements ApiServiceEndpoint {
         if (initialized) {
             throw new IllegalStateException();
         }
-        String apiServiceUrl = configuration.get(API_SERVICE_CONFIG_NAME);
+        String apiServiceUrl = configuration.getApiUrl();
 
         if (StringUtils.isEmpty(apiServiceUrl)){
             throw new IllegalStateException(EMPTY_URL_ERROR);

@@ -2,7 +2,6 @@ package pl.guideme.burkia.api;
 
 import android.content.Context;
 
-import org.apache.commons.lang3.StringUtils;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
@@ -14,11 +13,10 @@ import org.robolectric.RobolectricGradleTestRunner;
 import org.robolectric.annotation.Config;
 
 import pl.guideme.burkia.BuildConfig;
-import pl.guideme.burkia.configuration.AppConfig;
+import pl.guideme.burkia.config.AppConfig;
 import pl.guideme.burkia.view.activities.MainActivity_;
 
 import static org.junit.Assert.assertTrue;
-import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -38,22 +36,9 @@ public class ApiServiceTest {
         Context context = Robolectric.buildActivity(MainActivity_.class).get().getApplicationContext();
         apiService = ApiService_.getInstance_(context);
         nullReturningConfiguration = mock(AppConfig.class);
-        when(nullReturningConfiguration.get(any(String.class))).thenReturn(null);
-        nonProperConfiguration = new AppConfig(){
-            @Override
-            public String get(String key) {
-                return key;
-            }
-        };
-        properConfiguration = new AppConfig() {
-            @Override
-            public String get(String key) {
-                if (StringUtils.equals(key, ApiService.API_SERVICE_CONFIG_NAME)){
-                    return "http://mock.com";
-                }
-                return key;
-            }
-        };
+        when(nullReturningConfiguration.getApiUrl()).thenReturn(null);
+        when(nonProperConfiguration.getApiUrl()).thenReturn("something");
+        when(properConfiguration.getApiUrl()).thenReturn("http://mock.com");
     }
 
     @After

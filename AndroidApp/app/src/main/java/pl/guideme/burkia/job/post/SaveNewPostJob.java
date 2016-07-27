@@ -22,10 +22,9 @@ import android.content.Context;
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EBean;
 
-import de.greenrobot.event.EventBus;
+import pl.guideme.burkia.AppConfigProvider;
 import pl.guideme.burkia.api.ApiService;
 import pl.guideme.burkia.api.NewPostResponse;
-import pl.guideme.burkia.config.DemoConfig;
 import pl.guideme.burkia.event.post.DeletePostEvent;
 import pl.guideme.burkia.event.post.NewPostEvent;
 import pl.guideme.burkia.event.post.UpdatedPostEvent;
@@ -54,9 +53,12 @@ public class SaveNewPostJob extends BaseJob {
     protected EventBusProvider mEventBus;
     @Bean
     protected FeedModel mFeedModel;
+    @Bean
     protected PostModel mPostModel;
-    transient UserModel mUserModel;
-    transient DemoConfig mDemoConfig;
+    @Bean
+    protected transient UserModel mUserModel;
+    @Bean
+    protected transient AppConfigProvider appConfigProvider;
 
     private BaseJob job;
 
@@ -108,7 +110,7 @@ public class SaveNewPostJob extends BaseJob {
 
     @Override
     protected int getRetryLimit() {
-        return mDemoConfig.getNewPostRetryCount();
+        return appConfigProvider.getConfig().getNewPostRetryCount();
     }
 
     @Override
