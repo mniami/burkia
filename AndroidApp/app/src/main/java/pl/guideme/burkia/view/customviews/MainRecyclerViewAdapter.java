@@ -1,4 +1,4 @@
-package pl.guideme.burkia.view.components.feeds;
+package pl.guideme.burkia.view.customviews;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -11,6 +11,8 @@ import pl.guideme.burkia.R;
 
 public class MainRecyclerViewAdapter extends RecyclerView.Adapter<MainRecyclerViewAdapter.ViewHolder> {
     private String[] mDataset;
+    private View.OnClickListener clickListener;
+    private View.OnClickListener wrappedClickListener;
 
     // Provide a reference to the views for each data item
     // Complex data items may need more than one view per item, and
@@ -19,12 +21,36 @@ public class MainRecyclerViewAdapter extends RecyclerView.Adapter<MainRecyclerVi
         // each data item is just a string in this case
         private TextView mTextView;
         private ImageView mImageView;
+        private View.OnClickListener clickListener;
 
         public ViewHolder(View v) {
             super(v);
             mTextView = (TextView)v.findViewById(R.id.main_recycleview_item_textview);
             mImageView = (ImageView)v.findViewById(R.id.main_recycleview_item_imageview);
+
         }
+        public void setClickListener(View.OnClickListener clickListener){
+            this.clickListener = clickListener;
+
+            mTextView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    ViewHolder.this.clickListener.onClick(view);
+                }
+            });
+        }
+    }
+
+    public void setTextClickListener(final View.OnClickListener listener){
+        this.clickListener = listener;
+        this.wrappedClickListener = new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                if (clickListener != null){
+                    clickListener.onClick(view);
+                }
+            }
+        };
     }
 
     // Provide a suitable constructor (depends on the kind of dataset)
@@ -41,6 +67,7 @@ public class MainRecyclerViewAdapter extends RecyclerView.Adapter<MainRecyclerVi
                 .inflate(R.layout.main_recycleview_item, parent, false);
         // set the view's size, margins, paddings and layout parameters
         ViewHolder vh = new ViewHolder(v);
+        vh.setClickListener(wrappedClickListener);
         return vh;
     }
 
@@ -58,4 +85,10 @@ public class MainRecyclerViewAdapter extends RecyclerView.Adapter<MainRecyclerVi
     public int getItemCount() {
         return mDataset.length;
     }
+    @Override
+    public void onDetachedFromRecyclerView(RecyclerView recyclerView) {
+        this.clickListener = null;
+        this.wrappedClickListener = null;
+    }
+
 }

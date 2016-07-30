@@ -1,4 +1,4 @@
-package pl.guideme.burkia.view.components.toolbar;
+package pl.guideme.burkia.view.components;
 
 import android.content.Context;
 import android.support.v4.app.FragmentActivity;
@@ -10,6 +10,7 @@ import org.androidannotations.annotations.EBean;
 import pl.guideme.burkia.R;
 import pl.guideme.burkia.view.components.base.ComponentAdapter;
 import pl.guideme.burkia.view.components.base.ComponentContainer;
+import pl.guideme.burkia.view.customviews.Hamburger;
 
 @EBean
 public class ToolbarComponent extends ComponentAdapter {

@@ -1,6 +1,9 @@
-package pl.guideme.burkia.view.fragments;
+package pl.guideme.burkia.view.components.base;
 
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
+
+import java.util.function.Consumer;
 
 public interface FragmentListener {
     void fragmentStarted(Fragment fragment);
@@ -8,4 +11,5 @@ public interface FragmentListener {
     void fragmentPaused(Fragment fragment);
     void fragmentStopped(Fragment fragment);
     void fragmentDestroyed(Fragment fragment);
+    void fragmentAction(Bundle actionArgument);
 }

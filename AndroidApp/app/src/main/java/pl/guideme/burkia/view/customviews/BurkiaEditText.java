@@ -1,4 +1,4 @@
-package pl.guideme.burkia.view.components;
+package pl.guideme.burkia.view.customviews;
 
 import android.content.Context;
 import android.content.res.TypedArray;

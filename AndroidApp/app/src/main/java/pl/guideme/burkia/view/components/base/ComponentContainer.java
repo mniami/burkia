@@ -23,7 +23,8 @@ public class ComponentContainer {
 
     public <T> T get(Class<T> itemClass) {
         for (Component component : components) {
-            if (component.getClass() == itemClass){
+            Class claz = component.getClass();
+            if (itemClass.isAssignableFrom(claz)){
                 return (T) component;
             }
         }

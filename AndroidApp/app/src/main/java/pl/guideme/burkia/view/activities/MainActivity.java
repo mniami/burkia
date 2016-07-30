@@ -8,11 +8,12 @@ import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EActivity;
 
 import pl.guideme.burkia.R;
-import pl.guideme.burkia.view.components.ChangeFragment_;
 import pl.guideme.burkia.view.components.base.ComponentContainer;
-import pl.guideme.burkia.view.components.drawers.DrawerComponent_;
-import pl.guideme.burkia.view.components.feeds.FeedListComponent_;
-import pl.guideme.burkia.view.components.toolbar.ToolbarComponent_;
+import pl.guideme.burkia.view.components.DrawerComponent_;
+import pl.guideme.burkia.view.components.FeedListComponent;
+import pl.guideme.burkia.view.components.FeedListComponent_;
+import pl.guideme.burkia.view.components.ToolbarComponent_;
+import pl.guideme.burkia.view.components.FragmentComponent_;
 
 @EActivity
 public class MainActivity extends AppCompatActivity {
@@ -22,16 +23,20 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        View view = getLayoutInflater().inflate(R.layout.activity_main, null);
-        setContentView(view);
+        setContentView(R.layout.activity_main);
 
+        final View view = findViewById(android.R.id.content);
+
+        FeedListComponent feedListComponent = FeedListComponent_.getInstance_(getApplicationContext());
         componentContainer.onCreate(this, view,
-                FeedListComponent_.getInstance_(getApplicationContext()),
+                feedListComponent,
                 ToolbarComponent_.getInstance_(getApplicationContext()),
-                ChangeFragment_.getInstance_(getApplicationContext()),
+                FragmentComponent_.getInstance_(getApplicationContext()),
                 DrawerComponent_.getInstance_(getApplicationContext())
         );
-        FeedListComponent_.getInstance_(getApplicationContext()).show();
+        if (savedInstanceState == null || savedInstanceState.isEmpty()) {
+            feedListComponent.show();
+        }
     }
 
     @Override

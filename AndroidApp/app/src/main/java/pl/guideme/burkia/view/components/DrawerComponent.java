@@ -1,33 +1,33 @@
-package pl.guideme.burkia.view.components.drawers;
+package pl.guideme.burkia.view.components;
 
 import android.content.Context;
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.view.View;
 
 import org.androidannotations.annotations.EBean;
 
-import pl.guideme.burkia.view.components.ChangeFragment;
 import pl.guideme.burkia.view.components.base.ComponentAdapter;
 import pl.guideme.burkia.view.components.base.ComponentContainer;
-import pl.guideme.burkia.view.components.toolbar.ToolbarComponent;
-import pl.guideme.burkia.view.fragments.Drawer;
+import pl.guideme.burkia.view.fragments.DrawerFragment;
 
 @EBean
 public class DrawerComponent extends ComponentAdapter {
     private ToolbarComponent mToolbarComponent;
-    private ChangeFragment mChangeFragment;
+    private FragmentComponent mFragmentComponent;
 
     @Override
     public void onCreate(FragmentActivity activity, Context context, View parentView, ComponentContainer componentContainer) {
         super.onCreate(activity, context, parentView, componentContainer);
         mToolbarComponent = componentContainer.get(ToolbarComponent.class);
-        mChangeFragment = componentContainer.get(ChangeFragment.class);
+        mFragmentComponent = componentContainer.get(FragmentComponent.class);
     }
 
     @Override
-    public void onResume(){
-        super.onResume();
+    protected void onFragmentResumed(Fragment fragment) {
+        super.onFragmentResumed(fragment);
+
         mToolbarComponent.setHamburgerListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -37,20 +37,21 @@ public class DrawerComponent extends ComponentAdapter {
     }
 
     @Override
-    public void onPause() {
+    protected void onFragmentPaused(Fragment fragment) {
         mToolbarComponent.clearHamburgerListener();
     }
 
+    public void show() {
+        final DrawerFragment drawerFragment = new DrawerFragment();
+        drawerFragment.setFragmentListener(getFragmentListener());
+        mFragmentComponent.change(drawerFragment, false);
+    }
+    @Override
+    protected void onFragmentAction(Bundle actionArgument) {
+        mToolbarComponent.animateHamburgerCross();
+        mFragmentComponent.popBackStack();
+    }
+
     private void onHamburgerClick() {
-        Fragment currentFragment = mChangeFragment.getCurrentFragment();
-        if (currentFragment instanceof Drawer) {
-            boolean handled = ((Drawer) currentFragment).closeClicked();
-            if (!handled) {
-                mChangeFragment.popBackStack();
-            }
-        } else {
-            mToolbarComponent.animateHamburgerCross();
-            mChangeFragment.change(new Drawer());
-        }
     }
 }
