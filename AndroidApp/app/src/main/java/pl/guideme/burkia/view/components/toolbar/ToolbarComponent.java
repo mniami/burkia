@@ -9,24 +9,17 @@ import org.androidannotations.annotations.EBean;
 
 import pl.guideme.burkia.R;
 import pl.guideme.burkia.view.components.base.ComponentAdapter;
+import pl.guideme.burkia.view.components.base.ComponentContainer;
 
 @EBean
-public class MainToolbar extends ComponentAdapter {
+public class ToolbarComponent extends ComponentAdapter {
     private Toolbar toolbar;
     private Hamburger hamburger;
 
     private View.OnClickListener hamburgerListener;
 
-    public void setHamburgerListener(View.OnClickListener hamburgerListener) {
-        this.hamburgerListener = hamburgerListener;
-    }
-
-    public void clearHamburgerListener() {
-        this.hamburgerListener = null;
-    }
-
     @Override
-    public void onCreate(FragmentActivity activity, Context context, View view) {
+    public void onCreate(FragmentActivity activity, Context context, View view, ComponentContainer componentContainer) {
         toolbar = (Toolbar) view.findViewById(R.id.toolbar);
         hamburger = (Hamburger) view.findViewById(R.id.hamburger);
 
@@ -45,6 +38,15 @@ public class MainToolbar extends ComponentAdapter {
         toolbar = null;
         hamburger = null;
     }
+
+    public void setHamburgerListener(View.OnClickListener hamburgerListener) {
+        this.hamburgerListener = hamburgerListener;
+    }
+
+    public void clearHamburgerListener() {
+        this.hamburgerListener = null;
+    }
+
 
     public void animateHamburgerCross() {
 

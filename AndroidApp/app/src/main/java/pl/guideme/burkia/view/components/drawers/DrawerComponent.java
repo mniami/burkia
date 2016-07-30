@@ -1,4 +1,4 @@
-package pl.guideme.burkia.view.components.dispatchers;
+package pl.guideme.burkia.view.components.drawers;
 
 import android.content.Context;
 import android.support.v4.app.Fragment;
@@ -7,23 +7,28 @@ import android.view.View;
 
 import org.androidannotations.annotations.EBean;
 
-import pl.guideme.burkia.view.components.base.ComponentContainer;
-import pl.guideme.burkia.view.components.base.DispatcherAdapter;
-import pl.guideme.burkia.view.components.toolbar.MainToolbar;
-import pl.guideme.burkia.view.fragments.Drawer;
 import pl.guideme.burkia.view.components.ChangeFragment;
+import pl.guideme.burkia.view.components.base.ComponentAdapter;
+import pl.guideme.burkia.view.components.base.ComponentContainer;
+import pl.guideme.burkia.view.components.toolbar.ToolbarComponent;
+import pl.guideme.burkia.view.fragments.Drawer;
 
 @EBean
-public class DrawerDispatcher extends DispatcherAdapter {
-    private MainToolbar mMainToolbarPresenter;
+public class DrawerComponent extends ComponentAdapter {
+    private ToolbarComponent mToolbarComponent;
     private ChangeFragment mChangeFragment;
 
     @Override
-    public void onCreate(FragmentActivity activity, Context context, ComponentContainer componentContainer) {
-        mMainToolbarPresenter = componentContainer.get(MainToolbar.class);
+    public void onCreate(FragmentActivity activity, Context context, View parentView, ComponentContainer componentContainer) {
+        super.onCreate(activity, context, parentView, componentContainer);
+        mToolbarComponent = componentContainer.get(ToolbarComponent.class);
         mChangeFragment = componentContainer.get(ChangeFragment.class);
+    }
 
-        mMainToolbarPresenter.setHamburgerListener(new View.OnClickListener() {
+    @Override
+    public void onResume(){
+        super.onResume();
+        mToolbarComponent.setHamburgerListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 onHamburgerClick();
@@ -33,7 +38,7 @@ public class DrawerDispatcher extends DispatcherAdapter {
 
     @Override
     public void onPause() {
-        mMainToolbarPresenter.clearHamburgerListener();
+        mToolbarComponent.clearHamburgerListener();
     }
 
     private void onHamburgerClick() {
@@ -44,7 +49,7 @@ public class DrawerDispatcher extends DispatcherAdapter {
                 mChangeFragment.popBackStack();
             }
         } else {
-            mMainToolbarPresenter.animateHamburgerCross();
+            mToolbarComponent.animateHamburgerCross();
             mChangeFragment.change(new Drawer());
         }
     }

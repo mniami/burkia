@@ -5,9 +5,10 @@ import android.support.v4.app.FragmentActivity;
 import android.view.View;
 
 public interface Component {
-    void onCreate(FragmentActivity activity, Context context, View view);
+    void onCreate(FragmentActivity activity, Context context, View view, ComponentContainer container);
     void onResume();
     void onStop();
     void onPause();
     void onDestroy();
+    void onStart();
 }

@@ -10,16 +10,14 @@ import org.androidannotations.annotations.EActivity;
 import pl.guideme.burkia.R;
 import pl.guideme.burkia.view.components.ChangeFragment_;
 import pl.guideme.burkia.view.components.base.ComponentContainer;
-import pl.guideme.burkia.view.components.dispatchers.DrawerDispatcher;
-import pl.guideme.burkia.view.components.mainrecycleview.MainRecyclerView_;
-import pl.guideme.burkia.view.components.toolbar.MainToolbar_;
+import pl.guideme.burkia.view.components.drawers.DrawerComponent_;
+import pl.guideme.burkia.view.components.feeds.FeedListComponent_;
+import pl.guideme.burkia.view.components.toolbar.ToolbarComponent_;
 
 @EActivity
 public class MainActivity extends AppCompatActivity {
     @Bean
     protected ComponentContainer componentContainer;
-    @Bean
-    protected DrawerDispatcher drawerDispatcher;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,11 +26,12 @@ public class MainActivity extends AppCompatActivity {
         setContentView(view);
 
         componentContainer.onCreate(this, view,
-                MainRecyclerView_.getInstance_(getApplicationContext()),
-                MainToolbar_.getInstance_(getApplicationContext()),
-                ChangeFragment_.getInstance_(getApplicationContext())
+                FeedListComponent_.getInstance_(getApplicationContext()),
+                ToolbarComponent_.getInstance_(getApplicationContext()),
+                ChangeFragment_.getInstance_(getApplicationContext()),
+                DrawerComponent_.getInstance_(getApplicationContext())
         );
-        drawerDispatcher.onCreate(this, getApplicationContext(), componentContainer);
+        FeedListComponent_.getInstance_(getApplicationContext()).show();
     }
 
     @Override
@@ -43,7 +42,6 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public void onPause() {
-        drawerDispatcher.onPause();
         componentContainer.onPause();
         super.onPause();
     }

@@ -9,22 +9,10 @@ import org.androidannotations.annotations.EBean;
 
 import pl.guideme.burkia.R;
 import pl.guideme.burkia.view.components.base.ComponentAdapter;
+import pl.guideme.burkia.view.components.base.ComponentContainer;
 
 @EBean
 public class ChangeFragment extends ComponentAdapter {
-
-    private FragmentActivity activity;
-
-    @Override
-    public void onCreate(FragmentActivity activity, Context context, View view) {
-        this.activity = activity;
-    }
-
-    @Override
-    public void onStop() {
-        this.activity = null;
-    }
-
     public <T> boolean isCurrentFragment(Class<T> itemClass) {
         return getCurrentFragmentName().equals(itemClass.getName());
     }

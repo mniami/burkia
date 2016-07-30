@@ -17,7 +17,7 @@ public class ComponentContainer {
         this.view = view;
 
         for (Component component : components) {
-            component.onCreate(activity, view.getContext(), view);
+            component.onCreate(activity, view.getContext(), view, this);
         }
     }
 

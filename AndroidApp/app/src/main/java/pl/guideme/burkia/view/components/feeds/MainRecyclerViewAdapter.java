@@ -1,4 +1,4 @@
-package pl.guideme.burkia.view.components.mainrecycleview;
+package pl.guideme.burkia.view.components.feeds;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;

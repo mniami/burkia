@@ -5,20 +5,6 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin" tools:context=".view.fragments.MainActivityFragment">
 
-    <android.support.v7.widget.Toolbar
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/toolbar">
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            <pl.guideme.burkia.view.components.toolbar.Hamburger
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/hamburger"/>
-        </LinearLayout>
-    </android.support.v7.widget.Toolbar>
     <android.support.v7.widget.RecyclerView
         android:id="@+id/m_recycler_view"
         android:layout_width="match_parent"
