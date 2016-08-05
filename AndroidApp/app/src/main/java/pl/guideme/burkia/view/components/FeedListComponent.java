@@ -4,8 +4,8 @@ import android.os.Bundle;
 
 import org.androidannotations.annotations.EBean;
 
-import pl.guideme.burkia.view.components.base.ActionKeys;
-import pl.guideme.burkia.view.components.base.FragmentComponentAdapter;
+import pl.guideme.componentslib.ActionKeys;
+import pl.guideme.componentslib.FragmentComponentAdapter;
 import pl.guideme.burkia.view.fragments.FeedListFragment;
 
 @EBean

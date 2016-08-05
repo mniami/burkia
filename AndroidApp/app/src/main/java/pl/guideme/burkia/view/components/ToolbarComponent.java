@@ -7,7 +7,7 @@ import android.view.View;
 import org.androidannotations.annotations.EBean;
 
 import pl.guideme.burkia.R;
-import pl.guideme.burkia.view.components.base.FragmentComponentAdapter;
+import pl.guideme.componentslib.FragmentComponentAdapter;
 import pl.guideme.burkia.view.customviews.Hamburger;
 
 @EBean

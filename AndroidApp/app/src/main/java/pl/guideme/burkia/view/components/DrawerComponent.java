@@ -7,8 +7,8 @@ import android.view.View;
 
 import org.androidannotations.annotations.EBean;
 
-import pl.guideme.burkia.view.components.base.FragmentComponentAdapter;
-import pl.guideme.burkia.view.components.base.ComponentContainer;
+import pl.guideme.componentslib.FragmentComponentAdapter;
+import pl.guideme.componentslib.ComponentContainer;
 import pl.guideme.burkia.view.fragments.DrawerFragment;
 
 @EBean

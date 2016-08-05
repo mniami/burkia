@@ -8,7 +8,7 @@ import org.apache.commons.lang3.StringUtils;
 
 import pl.guideme.burkia.R;
 import pl.guideme.burkia.util.L;
-import pl.guideme.burkia.view.components.base.FragmentComponentAdapter;
+import pl.guideme.componentslib.FragmentComponentAdapter;
 
 @EBean
 public class FragmentComponent extends FragmentComponentAdapter {

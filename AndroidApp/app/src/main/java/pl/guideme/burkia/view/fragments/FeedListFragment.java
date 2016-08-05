@@ -9,8 +9,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import pl.guideme.burkia.R;
-import pl.guideme.burkia.view.components.base.Action;
-import pl.guideme.burkia.view.components.base.BaseFragment;
+import pl.guideme.componentslib.Action;
+import pl.guideme.componentslib.BaseFragment;
 import pl.guideme.burkia.view.customviews.MainRecyclerViewAdapter;
 
 public class FeedListFragment extends BaseFragment {

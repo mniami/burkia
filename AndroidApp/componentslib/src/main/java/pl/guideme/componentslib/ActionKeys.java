@@ -1,4 +1,4 @@
-package pl.guideme.burkia.view.components.base;
+package pl.guideme.componentslib;
 
 public class ActionKeys {
     public static final String ACTION_NAME = "ActionName";

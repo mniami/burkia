@@ -16,7 +16,7 @@ import pl.guideme.burkia.view.components.FeedListComponent;
 import pl.guideme.burkia.view.components.FeedListComponent_;
 import pl.guideme.burkia.view.components.FragmentComponent_;
 import pl.guideme.burkia.view.components.ToolbarComponent_;
-import pl.guideme.burkia.view.components.base.ComponentContainer;
+import pl.guideme.componentslib.ComponentContainer;
 
 @EActivity
 public class MainActivity extends AppCompatActivity {

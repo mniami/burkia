@@ -1,4 +1,4 @@
-package pl.guideme.burkia.view.components.base;
+package pl.guideme.componentslib;
 
 import android.content.Context;
 import android.os.Bundle;

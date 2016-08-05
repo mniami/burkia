@@ -8,8 +8,8 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 
 import pl.guideme.burkia.R;
-import pl.guideme.burkia.view.components.base.Action;
-import pl.guideme.burkia.view.components.base.BaseFragment;
+import pl.guideme.componentslib.Action;
+import pl.guideme.componentslib.BaseFragment;
 
 public class DrawerFragment extends BaseFragment {
     public static final int BUTTON_CLICKED = 1;

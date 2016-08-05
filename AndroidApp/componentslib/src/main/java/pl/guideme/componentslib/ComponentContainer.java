@@ -1,4 +1,4 @@
-package pl.guideme.burkia.view.components.base;
+package pl.guideme.componentslib;
 
 import android.support.v4.app.FragmentActivity;
 import android.view.View;
