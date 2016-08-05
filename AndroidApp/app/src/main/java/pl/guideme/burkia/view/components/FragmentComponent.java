@@ -8,24 +8,23 @@ import org.apache.commons.lang3.StringUtils;
 
 import pl.guideme.burkia.R;
 import pl.guideme.burkia.util.L;
-import pl.guideme.burkia.view.components.base.ComponentAdapter;
+import pl.guideme.burkia.view.components.base.FragmentComponentAdapter;
 
 @EBean
-public class FragmentComponent extends ComponentAdapter {
+public class FragmentComponent extends FragmentComponentAdapter {
     public void popBackStack() {
         L.d("Pop back stack called");
-        if (activity == null) {
+        if (mActivity == null) {
             return;
         }
-        activity.getSupportFragmentManager().popBackStack();
+        mActivity.getSupportFragmentManager().popBackStack();
     }
-
     public void change(Fragment fragment) {
         change(fragment, true);
     }
 
     public void change(Fragment fragment, boolean addToBackStack) {
-        if (activity == null) {
+        if (!isVisible()) {
             return;
         }
         String backStackTag;
@@ -37,8 +36,9 @@ public class FragmentComponent extends ComponentAdapter {
 
         L.d("Change fragment to: " + fragment.getClass().getName() + " with backStack tag: " + (backStackTag != null ? backStackTag : StringUtils.EMPTY));
 
-        FragmentTransaction transaction = activity.getSupportFragmentManager()
+        FragmentTransaction transaction = mActivity.getSupportFragmentManager()
                 .beginTransaction()
+                .setCustomAnimations(R.anim.animation_exit, R.anim.animation_enter)
                 .replace(R.id.fragment_container, fragment);
         if (backStackTag != null) {
             transaction.addToBackStack(backStackTag);
@@ -47,9 +47,9 @@ public class FragmentComponent extends ComponentAdapter {
     }
 
     private String getLastBackStackTag() {
-        int count = activity.getSupportFragmentManager().getBackStackEntryCount();
+        int count = mActivity.getSupportFragmentManager().getBackStackEntryCount();
         if (count > 0) {
-            return activity.getSupportFragmentManager().getBackStackEntryAt(count - 1).getName();
+            return mActivity.getSupportFragmentManager().getBackStackEntryAt(count - 1).getName();
         }
         return null;
     }

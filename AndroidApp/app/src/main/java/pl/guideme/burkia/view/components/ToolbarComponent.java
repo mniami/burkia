@@ -1,28 +1,25 @@
 package pl.guideme.burkia.view.components;
 
-import android.content.Context;
-import android.support.v4.app.FragmentActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
 import org.androidannotations.annotations.EBean;
 
 import pl.guideme.burkia.R;
-import pl.guideme.burkia.view.components.base.ComponentAdapter;
-import pl.guideme.burkia.view.components.base.ComponentContainer;
+import pl.guideme.burkia.view.components.base.FragmentComponentAdapter;
 import pl.guideme.burkia.view.customviews.Hamburger;
 
 @EBean
-public class ToolbarComponent extends ComponentAdapter {
+public class ToolbarComponent extends FragmentComponentAdapter {
     private Toolbar toolbar;
     private Hamburger hamburger;
-
     private View.OnClickListener hamburgerListener;
 
     @Override
-    public void onCreate(FragmentActivity activity, Context context, View view, ComponentContainer componentContainer) {
-        toolbar = (Toolbar) view.findViewById(R.id.toolbar);
-        hamburger = (Hamburger) view.findViewById(R.id.hamburger);
+    public void onActivityCreated(AppCompatActivity activity) {
+        toolbar = (Toolbar) activity.findViewById(R.id.toolbar);
+        hamburger = (Hamburger) activity.findViewById(R.id.hamburger);
 
         hamburger.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -35,7 +32,7 @@ public class ToolbarComponent extends ComponentAdapter {
     }
 
     @Override
-    public void onStop() {
+    public void onActivityDestroy(AppCompatActivity activity) {
         toolbar = null;
         hamburger = null;
     }
@@ -50,6 +47,6 @@ public class ToolbarComponent extends ComponentAdapter {
 
 
     public void animateHamburgerCross() {
-
+        //TODO implement it
     }
 }

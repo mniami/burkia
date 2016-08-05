@@ -17,30 +17,18 @@ public class ComponentContainer {
         this.view = view;
 
         for (Component component : components) {
-            component.onCreate(activity, view.getContext(), view, this);
+            component.onCreate(activity.getApplicationContext(), this);
         }
     }
 
     public <T> T get(Class<T> itemClass) {
         for (Component component : components) {
             Class claz = component.getClass();
-            if (itemClass.isAssignableFrom(claz)){
+            if (itemClass.isAssignableFrom(claz)) {
                 return (T) component;
             }
         }
         return null;
-    }
-
-    public void onResume() {
-        for (Component component : components) {
-            component.onResume();
-        }
-    }
-
-    public void onPause() {
-        for (Component component : components) {
-            component.onPause();
-        }
     }
 
     public void onDestroy() {
@@ -49,9 +37,16 @@ public class ComponentContainer {
         }
     }
 
-    public void onStop() {
+    public Component getById(int componentId) {
         for (Component component : components) {
-            component.onStop();
+            if (component.getComponentId() == componentId) {
+                return component;
+            }
         }
+        return null;
+    }
+
+    public boolean isEmpty() {
+        return components == null;
     }
 }

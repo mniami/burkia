@@ -4,27 +4,24 @@ import android.os.Bundle;
 
 import org.androidannotations.annotations.EBean;
 
-import pl.guideme.burkia.R;
 import pl.guideme.burkia.view.components.base.ActionKeys;
-import pl.guideme.burkia.view.components.base.ComponentAdapter;
+import pl.guideme.burkia.view.components.base.FragmentComponentAdapter;
 import pl.guideme.burkia.view.fragments.FeedListFragment;
 
 @EBean
-public class FeedListComponent extends ComponentAdapter {
+public class FeedListComponent extends FragmentComponentAdapter {
+
     public void show(){
-        if (activity == null){
+        if (mActivity == null){
             throw new IllegalStateException();
         }
         ToolbarComponent toolbarComponent = mContainer.get(ToolbarComponent.class);
         toolbarComponent.animateHamburgerCross();
+        FragmentComponent fragmentComponent = mContainer.get(FragmentComponent.class);
 
         FeedListFragment fragment = new FeedListFragment();
-        fragment.setFragmentListener(getFragmentListener());
-        activity.getSupportFragmentManager()
-                .beginTransaction()
-                .replace(R.id.fragment_container, fragment)
-                .addToBackStack(null)
-                .commit();
+        fragment.attachToComponent(getComponentId());
+        fragmentComponent.change(fragment, true);
     }
 
     @Override
