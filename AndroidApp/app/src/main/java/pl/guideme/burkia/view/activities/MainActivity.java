@@ -50,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
 
         if (componentContainer.isEmpty()) {
             FeedListComponent feedListComponent = FeedListComponent_.getInstance_(getApplicationContext());
-            componentContainer.onCreate(this, view,
+            componentContainer.initialize(this,
                     feedListComponent,
                     ToolbarComponent_.getInstance_(getApplicationContext()),
                     FragmentComponent_.getInstance_(getApplicationContext()),

@@ -48,7 +48,7 @@ public class DrawerComponent extends FragmentComponentAdapter {
 
     public void show() {
         final DrawerFragment drawerFragment = new DrawerFragment();
-        drawerFragment.attachToComponent(getComponentId());
+        drawerFragment.attachToComponent(this);
         mFragmentComponent.change(drawerFragment, false);
     }
 

@@ -20,7 +20,7 @@ public class FeedListComponent extends FragmentComponentAdapter {
         FragmentComponent fragmentComponent = mContainer.get(FragmentComponent.class);
 
         FeedListFragment fragment = new FeedListFragment();
-        fragment.attachToComponent(getComponentId());
+        fragment.attachToComponent(this);
         fragmentComponent.change(fragment, true);
     }
 

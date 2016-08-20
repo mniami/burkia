@@ -19,7 +19,6 @@ package pl.guideme.burkia.model;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.database.sqlite.SQLiteDatabase;
 import android.support.annotation.Nullable;
 
 import org.androidannotations.annotations.Bean;
@@ -30,8 +29,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import pl.guideme.burkia.App;
-import pl.guideme.burkia.database.DatabaseProvider;
 import pl.guideme.burkia.vo.FeedItem;
 import pl.guideme.burkia.vo.Post;
 import pl.guideme.burkia.vo.User;

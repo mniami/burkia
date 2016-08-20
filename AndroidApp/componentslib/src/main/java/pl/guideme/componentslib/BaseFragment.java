@@ -8,22 +8,20 @@ import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.widget.AdapterView;
 
+import org.androidannotations.annotations.Bean;
+import org.androidannotations.annotations.EBean;
+
 import java.lang.ref.WeakReference;
 
+@EBean
 public class BaseFragment extends Fragment {
     protected FragmentListener mFragmentListener;
     protected WeakReference<Component> mReferencedComponent;
-    private boolean destroyed;
-    private View view;
+    @Bean
+    protected ComponentContainer mComponentContainer;
 
-    public void attachToComponent(int componentId) {
-        ComponentContainer componentContainer = ComponentContainer_.getInstance_(getContext());
-        mReferencedComponent = new WeakReference<>(componentContainer.getById(componentId));
-        Component component = mReferencedComponent.get();
-        if (component != null) {
-            component.register(this);
-        }
-    }
+    protected boolean destroyed;
+    protected View view;
 
     @Override
     public Animation onCreateAnimation(int transit, boolean enter, int nextAnim) {
@@ -36,9 +34,16 @@ public class BaseFragment extends Fragment {
 
         int componentId = savedInstanceState.getInt(ActionKeys.COMPONENT_ID, 0);
         if (componentId > 0) {
-            attachToComponent(componentId);
+            attachToComponent(getComponent(componentId));
         }
         destroyed = false;
+    }
+
+    private Component getComponent(int componentId) {
+        if (mComponentContainer != null) {
+            return mComponentContainer.getById(componentId);
+        }
+        return null;
     }
 
     @Override
@@ -98,6 +103,13 @@ public class BaseFragment extends Fragment {
             }
         } finally {
             mFragmentListener = null;
+        }
+    }
+
+    public void attachToComponent(Component component) {
+        if (component != null) {
+            mReferencedComponent = new WeakReference<>(component);
+            component.register(this);
         }
     }
 

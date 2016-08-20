@@ -9,12 +9,10 @@ import org.androidannotations.annotations.EBean;
 public class ComponentContainer {
     protected FragmentActivity activity;
     protected Component[] components;
-    protected View view;
 
-    public void onCreate(FragmentActivity activity, View view, Component... components) {
+    public void initialize(FragmentActivity activity, Component... components) {
         this.activity = activity;
         this.components = components;
-        this.view = view;
 
         for (Component component : components) {
             component.onCreate(activity.getApplicationContext(), this);
