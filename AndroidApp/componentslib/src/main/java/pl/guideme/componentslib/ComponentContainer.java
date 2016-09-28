@@ -1,11 +1,10 @@
 package pl.guideme.componentslib;
 
 import android.support.v4.app.FragmentActivity;
-import android.view.View;
 
 import org.androidannotations.annotations.EBean;
 
-@EBean
+@EBean(scope = EBean.Scope.Singleton)
 public class ComponentContainer {
     protected FragmentActivity activity;
     protected Component[] components;
@@ -15,8 +14,12 @@ public class ComponentContainer {
         this.components = components;
 
         for (Component component : components) {
-            component.onCreate(activity.getApplicationContext(), this);
+            component.initialize(activity.getApplicationContext(), this);
         }
+    }
+
+    public Component[] getComponents(){
+        return components;
     }
 
     public <T> T get(Class<T> itemClass) {

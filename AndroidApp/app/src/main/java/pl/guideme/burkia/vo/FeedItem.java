@@ -18,13 +18,12 @@
 package pl.guideme.burkia.vo;
 
 public class FeedItem {
-    private final Post mPost;
-    private final User mUser;
-
-    public FeedItem(Post post, User user) {
-        mPost = post;
-        mUser = user;
-    }
+    private Post mPost;
+    private User mUser;
+    private KeyValuePair[] mValues;
+    private String[] mTags;
+    private String mImageUrl;
+    private String mName;
 
     public Post getPost() {
         return mPost;
@@ -32,5 +31,45 @@ public class FeedItem {
 
     public User getUser() {
         return mUser;
+    }
+
+    public KeyValuePair[] getValues() {
+        return mValues;
+    }
+
+    public String[] getTags() {
+        return mTags;
+    }
+
+    public void setPost(Post mPost) {
+        this.mPost = mPost;
+    }
+
+    public void setUser(User mUser) {
+        this.mUser = mUser;
+    }
+
+    public void setValues(KeyValuePair[] mValues) {
+        this.mValues = mValues;
+    }
+
+    public void setTags(String[] mTags) {
+        this.mTags = mTags;
+    }
+
+    public String getImageUrl() {
+        return mImageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        mImageUrl = imageUrl;
+    }
+
+    public String getName() {
+        return mName;
+    }
+
+    public void setName(String name) {
+        mName = name;
     }
 }

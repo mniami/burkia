@@ -11,18 +11,21 @@ import android.view.ViewGroup;
 import pl.guideme.burkia.R;
 import pl.guideme.componentslib.Action;
 import pl.guideme.componentslib.BaseFragment;
-import pl.guideme.burkia.view.customviews.MainRecyclerViewAdapter;
+import pl.guideme.burkia.view.components.feeds.FeedsRecyclerViewAdapter;
+import pl.guideme.componentslib.util.L;
 
 public class FeedListFragment extends BaseFragment {
+    private static final L log = L.getL("FeedListFragment");
     public static final int FEED_LIST_ITEM_CLICKED = 1;
 
     protected RecyclerView mRecyclerView;
     protected LinearLayoutManager mLayoutManager;
-    protected MainRecyclerViewAdapter mAdapter;
+    protected FeedsRecyclerViewAdapter mAdapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
+        log.i("onCreateView called");
         View view = inflater.inflate(R.layout.fragment_main, container, false);
 
         mRecyclerView = (RecyclerView) view.findViewById(R.id.m_recycler_view);
@@ -35,7 +38,7 @@ public class FeedListFragment extends BaseFragment {
         mRecyclerView.setLayoutManager(mLayoutManager);
 
         // specify an adapter (see also next example)
-        mAdapter = new MainRecyclerViewAdapter(new String[]{
+        mAdapter = new FeedsRecyclerViewAdapter(new String[]{
                 "asdasd", "asd", "valdkjklfsjs"
         });
         mAdapter.setTextClickListener(new View.OnClickListener() {

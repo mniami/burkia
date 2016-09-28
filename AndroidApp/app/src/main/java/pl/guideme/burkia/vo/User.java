@@ -18,25 +18,16 @@
 package pl.guideme.burkia.vo;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.raizlabs.android.dbflow.annotation.Column;
-import com.raizlabs.android.dbflow.annotation.PrimaryKey;
-import com.raizlabs.android.dbflow.annotation.Table;
-import com.raizlabs.android.dbflow.structure.BaseModel;
 
 import org.apache.commons.lang3.StringUtils;
 
-import pl.guideme.burkia.model.DemoDatabase;
 import pl.guideme.burkia.util.Validation;
 import pl.guideme.burkia.util.ValidationFailedException;
 
-@Table(databaseName = DemoDatabase.NAME)
-public class User extends BaseModel implements Validation {
-    @Column
-    @PrimaryKey(autoincrement = false)
+public class User implements Validation {
     @JsonProperty("id")
     long mId;
 
-    @Column
     @JsonProperty("name")
     String mName;
 

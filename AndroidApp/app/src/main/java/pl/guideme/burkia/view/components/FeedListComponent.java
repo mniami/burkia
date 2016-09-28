@@ -1,17 +1,21 @@
 package pl.guideme.burkia.view.components;
 
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 
 import org.androidannotations.annotations.EBean;
 
+import pl.guideme.componentslib.util.L;
 import pl.guideme.componentslib.ActionKeys;
 import pl.guideme.componentslib.FragmentComponentAdapter;
 import pl.guideme.burkia.view.fragments.FeedListFragment;
 
 @EBean
 public class FeedListComponent extends FragmentComponentAdapter {
+    private static final L log = L.getL("FeedListComponent");
 
     public void show(){
+        log.i("Show called");
         if (mActivity == null){
             throw new IllegalStateException();
         }
@@ -25,7 +29,7 @@ public class FeedListComponent extends FragmentComponentAdapter {
     }
 
     @Override
-    public void onFragmentAction(Bundle actionArguments) {
+    public void onFragmentAction(Fragment fragment, Bundle actionArguments) {
         final DrawerComponent drawerComponent = mContainer.get(DrawerComponent.class);
 
         int actionId = actionArguments.getInt(ActionKeys.ACTION_NAME);

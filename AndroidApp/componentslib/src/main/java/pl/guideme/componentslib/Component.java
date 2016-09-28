@@ -15,7 +15,7 @@ public interface Component {
      * @param context
      * @param container
      */
-    void onCreate(Context context, ComponentContainer container);
+    void initialize(Context context, ComponentContainer container);
 
     /**
      * OnDestroy method calls when component is still attached to the {@link ComponentContainer} but is just
@@ -32,25 +32,21 @@ public interface Component {
     int getComponentId();
 
     /**
-     * Register fragment to component. This method is used by Fragments in {@link BaseFragment#onCreate(Bundle)} method.
-     * Attach fragment to appropriate component using {@link ComponentContainer#getById(int)} method to find component stored in {@link Bundle}
-     * assigned previously in {@link BaseFragment#onCreate(Bundle)} method.
-     *
-     * @param fragment
+     * Call when activiy state has changed
+     * @param activity
+     * @param activityAction
      */
-    void register(Fragment fragment);
+    void onActivityAction(Activity activity, ActivityAction activityAction);
 
     /**
-     * Call when connected activity is created.
-     *
-     * @param activity
+     * Call by registered fragment to communicate fragment state
+     * @param fragmentAction
      */
-    void onActivityCreated(AppCompatActivity activity);
+    void onFragmentAction(Fragment fragment, FragmentAction fragmentAction);
 
     /**
-     * Call when connected activity is destroyed.
-     *
-     * @param activity
+     * Call by registered fragment to communicate custom action executed
+     * @param actionArguments
      */
-    void onActivityDestroy(AppCompatActivity activity);
+    void onFragmentAction(Fragment fragment, Bundle actionArguments);
 }

@@ -15,12 +15,24 @@
  *
  */
 
-package pl.guideme.burkia.model;
+package pl.guideme.componentslib.util;
 
-import com.raizlabs.android.dbflow.annotation.Database;
+import android.util.Log;
 
-@Database(name = DemoDatabase.NAME, version = 1)
-public class DemoDatabase {
+public class L {
+    private final String tag;
 
-    public static final String NAME = "demo";
+    public L(String tag){
+        this.tag = tag;
+    }
+    public static L getL(String tag){
+        return new L(tag);
+    }
+    public void i(String msg, Object... args) {
+        Log.i(tag, String.format(msg, args));
+    }
+
+    public void e(Throwable t, String msg, Object... args) {
+        Log.e(tag, String.format(msg, args), t);
+    }
 }

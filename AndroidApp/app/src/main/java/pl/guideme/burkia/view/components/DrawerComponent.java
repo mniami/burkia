@@ -7,6 +7,7 @@ import android.view.View;
 
 import org.androidannotations.annotations.EBean;
 
+import pl.guideme.componentslib.FragmentAction;
 import pl.guideme.componentslib.FragmentComponentAdapter;
 import pl.guideme.componentslib.ComponentContainer;
 import pl.guideme.burkia.view.fragments.DrawerFragment;
@@ -17,16 +18,13 @@ public class DrawerComponent extends FragmentComponentAdapter {
     private FragmentComponent mFragmentComponent;
 
     @Override
-    public void onCreate(Context context, ComponentContainer componentContainer) {
-        super.onCreate(context, componentContainer);
+    public void initialize(Context context, ComponentContainer componentContainer) {
+        super.initialize(context, componentContainer);
         mToolbarComponent = componentContainer.get(ToolbarComponent.class);
         mFragmentComponent = componentContainer.get(FragmentComponent.class);
     }
 
-    @Override
-    protected void onFragmentResumed(Fragment fragment) {
-        super.onFragmentResumed(fragment);
-
+    private void onFragmentResumed() {
         mToolbarComponent.setHamburgerListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -35,15 +33,24 @@ public class DrawerComponent extends FragmentComponentAdapter {
         });
     }
 
-    @Override
-    protected void onFragmentPaused(Fragment fragment) {
+    private void onFragmentPaused() {
         mToolbarComponent.clearHamburgerListener();
     }
 
     @Override
-    protected void onFragmentAction(Bundle actionArgument) {
+    public void onFragmentAction(Fragment fragment, Bundle actionArgument) {
         mToolbarComponent.animateHamburgerCross();
         mFragmentComponent.popBackStack();
+    }
+
+    @Override
+    public void onFragmentAction(Fragment fragment, FragmentAction fragmentAction){
+        if (fragmentAction == FragmentAction.Resumed){
+            onFragmentResumed();
+        }
+        else if (fragmentAction == FragmentAction.Paused){
+            onFragmentPaused();
+        }
     }
 
     public void show() {

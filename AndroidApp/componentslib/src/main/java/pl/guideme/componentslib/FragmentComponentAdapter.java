@@ -3,33 +3,34 @@ package pl.guideme.componentslib;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.AppCompatActivity;
+
+import org.androidannotations.annotations.Bean;
+import org.androidannotations.annotations.EBean;
 
 /**
  * Base component adapter that gives the opportunity to work with Fragments with Android Component Oriented programming
  */
+@EBean
 public class FragmentComponentAdapter implements Component {
     private static int componentIdIncrementer = 0;
 
+    @Bean
     protected ComponentContainer mContainer;
-    protected FragmentListener mFragmentListener;
     protected int componentId;
     protected BaseFragment mFragment;
-    protected AppCompatActivity mActivity;
+    protected Activity mActivity;
 
     static int getNewComponentId() {
         return ++componentIdIncrementer;
     }
 
     @Override
-    public void onCreate(Context context, ComponentContainer container) {
+    public void initialize(Context context, ComponentContainer container) {
         this.mContainer = container;
 
         if (componentId == 0) {
             componentId = getNewComponentId();
         }
-
-        mFragmentListener = new FragmentListenerHandler();
     }
 
     @Override
@@ -43,84 +44,29 @@ public class FragmentComponentAdapter implements Component {
     }
 
     @Override
-    public void register(Fragment fragment) {
-        if (fragment instanceof BaseFragment) {
-            BaseFragment baseFragment = (BaseFragment) fragment;
-            baseFragment.setFragmentListener(mFragmentListener);
-            this.mFragment = baseFragment;
-            this.mActivity = (AppCompatActivity) baseFragment.getActivity();
-        }
-    }
-
-    @Override
-    public void onActivityCreated(AppCompatActivity activity) {
-        // Do nothing
-    }
-
-    @Override
-    public void onActivityDestroy(AppCompatActivity activity) {
-        // Do nothing
-    }
-
-    protected boolean isVisible() {
-        return mFragment != null && mFragment.isVisible();
-    }
-
-    protected void onFragmentStarted(Fragment fragment) {
-        // Do nothing
-    }
-
-    protected void onFragmentResumed(Fragment fragment) {
-        // Do nothing
-    }
-
-    protected void onFragmentPaused(Fragment fragment) {
-        // Do nothing
-    }
-
-    protected void onFragmentStopped(Fragment fragment) {
-        // Do nothing
-    }
-
-    protected void onFragmentDestroyed(Fragment fragment) {
-        // Do nothing
-    }
-
-    protected void onFragmentAction(Bundle actionArgument) {
-        // Do nothing
-    }
-
-    class FragmentListenerHandler implements FragmentListener {
-        @Override
-        public void fragmentStarted(Fragment fragment) {
-            onFragmentStarted(fragment);
-        }
-
-        @Override
-        public void fragmentResumed(Fragment fragment) {
-            onFragmentResumed(fragment);
-        }
-
-        @Override
-        public void fragmentPaused(Fragment fragment) {
-            onFragmentPaused(fragment);
-        }
-
-        @Override
-        public void fragmentStopped(Fragment fragment) {
-            onFragmentStopped(fragment);
-        }
-
-        @Override
-        public void fragmentDestroyed(Fragment fragment) {
-            onFragmentDestroyed(fragment);
+    public void onActivityAction(Activity activity, ActivityAction activityAction) {
+        if (activityAction == ActivityAction.Created) {
+            mActivity = activity;
+        } else if (activityAction == ActivityAction.Destroyed){
             mActivity = null;
-            mFragment = null;
         }
+    }
 
-        @Override
-        public void fragmentAction(Bundle actionArgument) {
-            FragmentComponentAdapter.this.onFragmentAction(actionArgument);
-        }
+    @Override
+    public void onFragmentAction(Fragment fragment, FragmentAction fragmentAction) {
+        // Do nothing
+    }
+
+    @Override
+    public void onFragmentAction(Fragment fragment, Bundle actionArguments) {
+        // Do nothing
+    }
+
+    protected boolean isActivityVisible() {
+        return mActivity != null && mActivity.isVisible();
+    }
+
+    protected boolean isActivityCreated(){
+        return mActivity != null && mActivity.isCreated();
     }
 }

@@ -15,10 +15,6 @@ public class DrawerFragment extends BaseFragment {
     public static final int BUTTON_CLICKED = 1;
     private ImageButton mImageButton;
 
-    public boolean closeClicked() {
-        return false;
-    }
-
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {

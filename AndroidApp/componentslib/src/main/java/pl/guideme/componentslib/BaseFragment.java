@@ -13,15 +13,18 @@ import org.androidannotations.annotations.EBean;
 
 import java.lang.ref.WeakReference;
 
+import pl.guideme.componentslib.util.L;
+
 @EBean
 public class BaseFragment extends Fragment {
-    protected FragmentListener mFragmentListener;
+    private static final L log = L.getL("BaseFragment");
+
     protected WeakReference<Component> mReferencedComponent;
     @Bean
     protected ComponentContainer mComponentContainer;
 
-    protected boolean destroyed;
-    protected View view;
+    protected boolean mDestroyed;
+    protected View mView;
 
     @Override
     public Animation onCreateAnimation(int transit, boolean enter, int nextAnim) {
@@ -30,13 +33,88 @@ public class BaseFragment extends Fragment {
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
+        log.i("onCreate called");
+
         super.onCreate(savedInstanceState);
 
-        int componentId = savedInstanceState.getInt(ActionKeys.COMPONENT_ID, 0);
-        if (componentId > 0) {
-            attachToComponent(getComponent(componentId));
+        if (savedInstanceState != null) {
+            int componentId = savedInstanceState.getInt(ActionKeys.COMPONENT_ID, 0);
+            if (componentId > 0) {
+                attachToComponent(getComponent(componentId));
+            }
         }
-        destroyed = false;
+        executeAction(FragmentAction.Created);
+        mDestroyed = false;
+    }
+
+    @Override
+    public void onStart() {
+        log.i("onStart called");
+        super.onStart();
+        executeAction(FragmentAction.Started);
+    }
+
+    @Override
+    public void onResume() {
+        log.i("onResume called");
+        super.onResume();
+        executeAction(FragmentAction.Resumed);
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        log.i("onSaveInstanceState called");
+        super.onSaveInstanceState(outState);
+        if (mReferencedComponent != null && mReferencedComponent.get() != null && outState != null) {
+            outState.putInt(ActionKeys.COMPONENT_ID, mReferencedComponent.get().getComponentId());
+        }
+    }
+
+    @Override
+    public void onPause() {
+        log.i("onPause called");
+        super.onPause();
+        executeAction(FragmentAction.Paused);
+    }
+
+    @Override
+    public void onStop() {
+        log.i("onStop called");
+        super.onStop();
+        executeAction(FragmentAction.Stopped);
+    }
+
+    @Override
+    public void onDestroyView() {
+        log.i("onDestroyView called");
+        super.onDestroyView();
+        this.mView = getView();
+        mDestroyed = true;
+    }
+
+    @Override
+    public void onDestroy() {
+        log.i("onDestroy called");
+        super.onDestroy();
+        removeViews(mView);
+        executeAction(FragmentAction.Destroyed);
+    }
+
+    public void attachToComponent(Component component) {
+        log.i("attachToComponent called");
+        if (component != null) {
+            mReferencedComponent = new WeakReference<>(component);
+        }
+    }
+
+    protected void raiseAction(Bundle actionArguments) {
+        log.i("raiseAction called with bundle");
+        if (mReferencedComponent != null) {
+            Component component = mReferencedComponent.get();
+            if (component != null) {
+                component.onFragmentAction(this, actionArguments);
+            }
+        }
     }
 
     private Component getComponent(int componentId) {
@@ -46,84 +124,18 @@ public class BaseFragment extends Fragment {
         return null;
     }
 
-    @Override
-    public void onStart() {
-        super.onStart();
-        if (mFragmentListener != null) {
-            mFragmentListener.fragmentStarted(this);
-        }
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        if (mFragmentListener != null) {
-            mFragmentListener.fragmentResumed(this);
-        }
-    }
-
-    @Override
-    public void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        if (mReferencedComponent != null && mReferencedComponent.get() != null) {
-            outState.putInt(ActionKeys.COMPONENT_ID, mReferencedComponent.get().getComponentId());
-        }
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        if (mFragmentListener != null) {
-            mFragmentListener.fragmentPaused(this);
-        }
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-        if (mFragmentListener != null) {
-            mFragmentListener.fragmentStopped(this);
-        }
-    }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        this.view = getView();
-        destroyed = true;
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        removeViews(view);
-        try {
-            if (mFragmentListener != null) {
-                mFragmentListener.fragmentDestroyed(this);
+    private void executeAction(FragmentAction fragmentAction) {
+        log.i("executeAction called with action " + fragmentAction);
+        if (mReferencedComponent != null) {
+            Component component = mReferencedComponent.get();
+            if (component != null) {
+                component.onFragmentAction(this, fragmentAction);
             }
-        } finally {
-            mFragmentListener = null;
-        }
-    }
-
-    public void attachToComponent(Component component) {
-        if (component != null) {
-            mReferencedComponent = new WeakReference<>(component);
-            component.register(this);
-        }
-    }
-
-    public void setFragmentListener(FragmentListener fragmentListener) {
-        this.mFragmentListener = fragmentListener;
-    }
-
-    protected void raiseAction(Bundle actionArguments) {
-        if (mFragmentListener != null) {
-            mFragmentListener.fragmentAction(actionArguments);
         }
     }
 
     private void removeViews(View view) {
+        log.i("removeViews called");
         if (view == null) {
             return;
         }
@@ -142,6 +154,6 @@ public class BaseFragment extends Fragment {
             view.setOnClickListener(null);
         }
         view.setOnKeyListener(null);
-        this.view = null;
+        this.mView = null;
     }
 }

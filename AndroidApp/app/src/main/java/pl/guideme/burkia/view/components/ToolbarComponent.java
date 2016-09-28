@@ -7,6 +7,8 @@ import android.view.View;
 import org.androidannotations.annotations.EBean;
 
 import pl.guideme.burkia.R;
+import pl.guideme.componentslib.Activity;
+import pl.guideme.componentslib.ActivityAction;
 import pl.guideme.componentslib.FragmentComponentAdapter;
 import pl.guideme.burkia.view.customviews.Hamburger;
 
@@ -17,24 +19,25 @@ public class ToolbarComponent extends FragmentComponentAdapter {
     private View.OnClickListener hamburgerListener;
 
     @Override
-    public void onActivityCreated(AppCompatActivity activity) {
-        toolbar = (Toolbar) activity.findViewById(R.id.toolbar);
-        hamburger = (Hamburger) activity.findViewById(R.id.hamburger);
+    public void onActivityAction(Activity activity, ActivityAction activityAction) {
+        if (activityAction == ActivityAction.Created) {
+            toolbar = (Toolbar) activity.findViewById(R.id.toolbar);
+            hamburger = (Hamburger) activity.findViewById(R.id.hamburger);
 
-        hamburger.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (hamburgerListener != null) {
-                    hamburgerListener.onClick(view);
+            hamburger.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (hamburgerListener != null) {
+                        hamburgerListener.onClick(view);
+                    }
                 }
-            }
-        });
-    }
-
-    @Override
-    public void onActivityDestroy(AppCompatActivity activity) {
-        toolbar = null;
-        hamburger = null;
+            });
+        }
+        else if (activityAction == ActivityAction.Destroyed){
+            toolbar = null;
+            hamburger = null;
+        }
+        super.onActivityAction(activity, activityAction);
     }
 
     public void setHamburgerListener(View.OnClickListener hamburgerListener) {

@@ -1,5 +1,6 @@
-package pl.guideme.burkia.view.customviews;
+package pl.guideme.burkia.view.components.feeds;
 
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -7,24 +8,29 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import pl.guideme.burkia.R;
+import com.squareup.picasso.Picasso;
 
-public class MainRecyclerViewAdapter extends RecyclerView.Adapter<MainRecyclerViewAdapter.ViewHolder> {
-    private String[] mDataset;
+import pl.guideme.burkia.R;
+import pl.guideme.burkia.vo.FeedItem;
+
+public class FeedsRecyclerViewAdapter extends RecyclerView.Adapter<FeedsRecyclerViewAdapter.ViewHolder> {
+    private FeedItem[] mDataSet;
     private View.OnClickListener clickListener;
     private View.OnClickListener wrappedClickListener;
 
     // Provide a reference to the views for each data item
-    // Complex data items may need more than one view per item, and
-    // you provide access to all the views for a data item in a view holder
+    // Complex data items may need more than one mView per item, and
+    // you provide access to all the views for a data item in a mView holder
     public static class ViewHolder extends RecyclerView.ViewHolder {
         // each data item is just a string in this case
         private TextView mTextView;
         private ImageView mImageView;
         private View.OnClickListener clickListener;
+        private Context mContext;
 
         public ViewHolder(View v) {
             super(v);
+            mContext = v.getContext().getApplicationContext();
             mTextView = (TextView)v.findViewById(R.id.main_recycleview_item_textview);
             mImageView = (ImageView)v.findViewById(R.id.main_recycleview_item_imageview);
 
@@ -33,6 +39,12 @@ public class MainRecyclerViewAdapter extends RecyclerView.Adapter<MainRecyclerVi
             this.clickListener = clickListener;
 
             mTextView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    ViewHolder.this.clickListener.onClick(view);
+                }
+            });
+            mImageView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     ViewHolder.this.clickListener.onClick(view);
@@ -53,37 +65,41 @@ public class MainRecyclerViewAdapter extends RecyclerView.Adapter<MainRecyclerVi
         };
     }
 
-    // Provide a suitable constructor (depends on the kind of dataset)
-    public MainRecyclerViewAdapter(String[] myDataset) {
-        mDataset = myDataset;
+    // Provide a suitable constructor (depends on the kind of dataSet)
+    public FeedsRecyclerViewAdapter(FeedItem[] myDataSet) {
+        mDataSet = myDataSet;
     }
 
     // Create new views (invoked by the layout manager)
     @Override
-    public MainRecyclerViewAdapter.ViewHolder onCreateViewHolder(ViewGroup parent,
-                                                                 int viewType) {
-        // create a new view
+    public FeedsRecyclerViewAdapter.ViewHolder onCreateViewHolder(ViewGroup parent,
+                                                                  int viewType) {
+        // create a new mView
         View v = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.main_recycleview_item, parent, false);
-        // set the view's size, margins, paddings and layout parameters
+        // set the mView's size, margins, padding's and layout parameters
         ViewHolder vh = new ViewHolder(v);
         vh.setClickListener(wrappedClickListener);
         return vh;
     }
 
-    // Replace the contents of a view (invoked by the layout manager)
+    // Replace the contents of a mView (invoked by the layout manager)
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        // - get element from your dataset at this position
-        // - replace the contents of the view with that element
-       holder.mTextView.setText(mDataset[position]);
+        // - get element from your dataSet at this position
+        // - replace the contents of the mView with that element
+        FeedItem feedItem = mDataSet[position];
+        holder.mTextView.setText(feedItem.getName());
 
+        Picasso.with(holder.mContext)
+                .load(feedItem.getImageUrl())
+                .into(holder.mImageView);
     }
 
     // Return the size of your dataset (invoked by the layout manager)
     @Override
     public int getItemCount() {
-        return mDataset.length;
+        return mDataSet.length;
     }
     @Override
     public void onDetachedFromRecyclerView(RecyclerView recyclerView) {
