@@ -1,6 +1,8 @@
 package pl.guideme.burkia.view.activities;
 
+import android.content.Context;
 import android.content.DialogInterface;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 
@@ -17,17 +19,20 @@ import pl.guideme.componentslib.Activity;
 import pl.guideme.componentslib.ActivityAction;
 import pl.guideme.componentslib.Component;
 import pl.guideme.componentslib.ComponentContainer;
-import pl.guideme.componentslib.util.L;
+import pl.guideme.data.ConnectivityReceiver;
+import pl.guideme.data.logs.Log;
 
 @EActivity
 public class MainActivity extends Activity {
-    private static final L log = L.getL("MainActivity");
+    private static final Log log = Log.withName("MainActivity");
     @Bean
     protected ComponentContainer mComponentContainer;
+    @Bean
+    protected ConnectivityReceiver mConnectivityReceiver;
 
     @Override
     public void onBackPressed() {
-        log.i("Pop back stack called");
+        log.info(()->"Pop back stack called");
         if (getSupportFragmentManager().getBackStackEntryCount() <= 1) {
             new AlertDialog.Builder(this)
                     .setTitle("Really Exit?")
@@ -49,9 +54,11 @@ public class MainActivity extends Activity {
             initializeComponentContainer();
         }
 
-        log.i("Activity created");
+        log.info(()->"Activity created");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        mConnectivityReceiver.init((ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE));
 
         onActivityAction(ActivityAction.Created);
 

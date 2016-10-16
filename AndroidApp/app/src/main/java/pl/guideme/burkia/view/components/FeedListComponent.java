@@ -5,17 +5,18 @@ import android.support.v4.app.Fragment;
 
 import org.androidannotations.annotations.EBean;
 
-import pl.guideme.componentslib.util.L;
+import pl.guideme.burkia.view.fragments.FeedListFragment_;
 import pl.guideme.componentslib.ActionKeys;
 import pl.guideme.componentslib.FragmentComponentAdapter;
 import pl.guideme.burkia.view.fragments.FeedListFragment;
+import pl.guideme.data.logs.Log;
 
 @EBean
 public class FeedListComponent extends FragmentComponentAdapter {
-    private static final L log = L.getL("FeedListComponent");
+    private static final Log log = Log.withName("FeedListComponent");
 
     public void show(){
-        log.i("Show called");
+        log.info(()->"Show called");
         if (mActivity == null){
             throw new IllegalStateException();
         }
@@ -23,7 +24,7 @@ public class FeedListComponent extends FragmentComponentAdapter {
         toolbarComponent.animateHamburgerCross();
         FragmentComponent fragmentComponent = mContainer.get(FragmentComponent.class);
 
-        FeedListFragment fragment = new FeedListFragment();
+        FeedListFragment fragment = FeedListFragment_.getInstance_(getContext());
         fragment.attachToComponent(this);
         fragmentComponent.change(fragment, true);
     }

@@ -1,5 +1,6 @@
 apply plugin: 'com.android.library'
 apply plugin: 'com.neenbedankt.android-apt'
+apply plugin: 'me.tatarka.retrolambda'
 
 android {
     compileSdkVersion 24
@@ -11,6 +12,23 @@ android {
         versionCode 1
         versionName "1.0"
     }
+    packagingOptions {
+        exclude 'META-INF/LICENSE.txt'
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/NOTICE'
+        exclude 'META-INF/DESCRIPTION'
+        exclude 'LICENSE.txt'
+        exclude 'META-INF/DEPENDENCIES'
+    }
+    lintOptions {
+        abortOnError false
+        ignoreWarnings true
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
     buildTypes {
         release {
             minifyEnabled false
@@ -21,11 +39,9 @@ android {
 
 dependencies {
     apt "org.androidannotations:androidannotations:4.0.0"
-
-    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile fileTree(include: ['*.jar'], dir: 'libs')
     compile 'com.android.support:appcompat-v7:24.0.0'
     compile 'org.androidannotations:androidannotations-api:4.0.0'
-
     testCompile 'junit:junit:4.12'
     testCompile 'com.android.support:support-annotations:24.0.0'
     testCompile('org.robolectric:robolectric:3.1') {
@@ -37,4 +53,5 @@ dependencies {
     }
     testCompile 'org.robolectric:shadows-support-v4:3.0'
     testCompile 'org.mockito:mockito-core:1.10.19'
+    compile project(':data')
 }

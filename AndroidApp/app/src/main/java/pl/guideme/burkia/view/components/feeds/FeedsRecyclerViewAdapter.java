@@ -11,7 +11,7 @@ import android.widget.TextView;
 import com.squareup.picasso.Picasso;
 
 import pl.guideme.burkia.R;
-import pl.guideme.burkia.vo.FeedItem;
+import pl.guideme.data.vo.FeedItem;
 
 public class FeedsRecyclerViewAdapter extends RecyclerView.Adapter<FeedsRecyclerViewAdapter.ViewHolder> {
     private FeedItem[] mDataSet;
@@ -86,8 +86,8 @@ public class FeedsRecyclerViewAdapter extends RecyclerView.Adapter<FeedsRecycler
     // Replace the contents of a mView (invoked by the layout manager)
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        // - get element from your dataSet at this position
-        // - replace the contents of the mView with that element
+        // - get element withName your dataSet at this position
+        // - replace the contents of the mView withName that element
         FeedItem feedItem = mDataSet[position];
         holder.mTextView.setText(feedItem.getName());
 

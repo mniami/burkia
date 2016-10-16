@@ -8,24 +8,33 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import org.androidannotations.annotations.Bean;
+import org.androidannotations.annotations.EBean;
+
 import pl.guideme.burkia.R;
 import pl.guideme.componentslib.Action;
 import pl.guideme.componentslib.BaseFragment;
 import pl.guideme.burkia.view.components.feeds.FeedsRecyclerViewAdapter;
-import pl.guideme.componentslib.util.L;
+import pl.guideme.data.datas.DataService;
+import pl.guideme.data.logs.Log;
+import pl.guideme.data.vo.FeedItem;
 
+@EBean
 public class FeedListFragment extends BaseFragment {
-    private static final L log = L.getL("FeedListFragment");
+    private static final Log log = Log.withName("FeedListFragment");
     public static final int FEED_LIST_ITEM_CLICKED = 1;
 
     protected RecyclerView mRecyclerView;
     protected LinearLayoutManager mLayoutManager;
     protected FeedsRecyclerViewAdapter mAdapter;
 
+    @Bean
+    protected DataService mDataService;
+
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        log.i("onCreateView called");
+        log.fine(()->"onCreateView called");
         View view = inflater.inflate(R.layout.fragment_main, container, false);
 
         mRecyclerView = (RecyclerView) view.findViewById(R.id.m_recycler_view);
@@ -38,15 +47,8 @@ public class FeedListFragment extends BaseFragment {
         mRecyclerView.setLayoutManager(mLayoutManager);
 
         // specify an adapter (see also next example)
-        mAdapter = new FeedsRecyclerViewAdapter(new String[]{
-                "asdasd", "asd", "valdkjklfsjs"
-        });
-        mAdapter.setTextClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                raiseAction(Action.named(FEED_LIST_ITEM_CLICKED));
-            }
-        });
+        mAdapter = new FeedsRecyclerViewAdapter(mDataService.getFeeds().toArray(new FeedItem[0]));
+        mAdapter.setTextClickListener(view1 -> raiseAction(Action.named(FEED_LIST_ITEM_CLICKED)));
         mRecyclerView.setAdapter(mAdapter);
         return view;
     }

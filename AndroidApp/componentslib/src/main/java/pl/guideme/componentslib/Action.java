@@ -4,7 +4,7 @@ import android.os.Bundle;
 
 public class Action {
     private Action() {
-        throw new IllegalAccessError("Action class");
+        throw new IllegalAccessError("EventAction class");
     }
     public static Bundle named(int actionValue){
         Bundle b = new Bundle();

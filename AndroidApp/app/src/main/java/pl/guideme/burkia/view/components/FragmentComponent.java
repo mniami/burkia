@@ -2,7 +2,6 @@ package pl.guideme.burkia.view.components;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.AppCompatActivity;
 
 import org.androidannotations.annotations.EBean;
 import org.apache.commons.lang3.StringUtils;
@@ -10,17 +9,17 @@ import org.apache.commons.lang3.StringUtils;
 import pl.guideme.burkia.R;
 import pl.guideme.componentslib.Activity;
 import pl.guideme.componentslib.ActivityAction;
-import pl.guideme.componentslib.util.L;
 import pl.guideme.componentslib.FragmentComponentAdapter;
+import pl.guideme.data.logs.Log;
 
 @EBean
 public class FragmentComponent extends FragmentComponentAdapter {
-    private static final L log = L.getL("FragmentComponent");
+    private static final Log log = Log.withName("FragmentComponent");
     private Fragment fragmentToChanged;
     private boolean fragmentToChangeAddToBackStack;
 
     public void popBackStack() {
-        log.i("Pop back stack called");
+        log.fine(()->"Pop back stack called");
         if (mActivity == null) {
             return;
         }
@@ -31,11 +30,11 @@ public class FragmentComponent extends FragmentComponentAdapter {
     }
 
     public void change(Fragment fragment, boolean addToBackStack) {
-        log.i("change called");
+        log.fine(()->"change called");
         if (!isActivityCreated()) {
             fragmentToChanged = fragment;
             fragmentToChangeAddToBackStack = addToBackStack;
-            log.i("Activity is not visible, change fragment canceled.");
+            log.fine(()->"Activity is not visible, change fragment canceled.");
             return;
         }
         String backStackTag;
@@ -45,7 +44,7 @@ public class FragmentComponent extends FragmentComponentAdapter {
             backStackTag = getLastBackStackTag();
         }
 
-        log.i("Change fragment to: " + fragment.getClass().getName() + " with backStack tag: " + (backStackTag != null ? backStackTag : StringUtils.EMPTY));
+        log.fine(()->"Change fragment to: " + fragment.getClass().getName() + " withName backStack tag: " + (backStackTag != null ? backStackTag : StringUtils.EMPTY));
 
         FragmentTransaction transaction = mActivity.getSupportFragmentManager()
                 .beginTransaction()

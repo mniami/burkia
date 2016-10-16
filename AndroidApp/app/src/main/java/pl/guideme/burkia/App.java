@@ -5,13 +5,13 @@ import android.app.Application;
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EApplication;
 
-import pl.guideme.burkia.api.ApiService;
 import pl.guideme.burkia.config.SharedAppConfig;
+import pl.guideme.data.net.ServerEngine;
 
 @EApplication
 public class App extends Application {
     @Bean
-    protected ApiService apiService;
+    protected ServerEngine mServerEngine;
 
     @Bean
     protected AppConfigProvider configProvider;
@@ -20,7 +20,7 @@ public class App extends Application {
     public void onCreate() {
         SharedAppConfig config = new SharedAppConfig(getApplicationContext());
         configProvider.initialize(config);
-        apiService.initialize(config);
+        mServerEngine.initialize(config.getApiUrl());
         super.onCreate();
     }
 }

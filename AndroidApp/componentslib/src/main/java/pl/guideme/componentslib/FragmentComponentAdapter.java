@@ -8,7 +8,7 @@ import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EBean;
 
 /**
- * Base component adapter that gives the opportunity to work with Fragments with Android Component Oriented programming
+ * Base component adapter that gives the opportunity to work withName Fragments withName Android Component Oriented programming
  */
 @EBean
 public class FragmentComponentAdapter implements Component {
@@ -31,6 +31,13 @@ public class FragmentComponentAdapter implements Component {
         if (componentId == 0) {
             componentId = getNewComponentId();
         }
+    }
+
+    public Context getContext(){
+        if (mActivity != null){
+            return mActivity.getApplicationContext();
+        }
+        return null;
     }
 
     @Override
