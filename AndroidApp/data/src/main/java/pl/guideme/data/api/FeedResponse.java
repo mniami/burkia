@@ -19,6 +19,7 @@ package pl.guideme.data.api;
 
 import java.util.List;
 
+import pl.guideme.data.vo.Atomic;
 import pl.guideme.data.vo.Post;
 import pl.guideme.data.vo.User;
 
@@ -26,6 +27,7 @@ public class FeedResponse {
 
     private List<Post> mPosts;
     private List<User> mUsers;
+    private List<Atomic> mAtomics;
 
     public List<Post> getPosts() {
         return mPosts;
@@ -41,5 +43,13 @@ public class FeedResponse {
 
     public void setUsers(List<User> users) {
         this.mUsers = users;
+    }
+
+    public List<Atomic> getAtomics() {
+        return mAtomics;
+    }
+
+    public void setAtomics(List<Atomic> atomics) {
+        mAtomics = atomics;
     }
 }

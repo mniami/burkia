@@ -17,7 +17,7 @@ import pl.guideme.componentslib.BaseFragment;
 import pl.guideme.burkia.view.components.feeds.FeedsRecyclerViewAdapter;
 import pl.guideme.data.datas.DataService;
 import pl.guideme.data.logs.Log;
-import pl.guideme.data.vo.FeedItem;
+import pl.guideme.data.vo.Atomic;
 
 @EBean
 public class FeedListFragment extends BaseFragment {
@@ -47,7 +47,7 @@ public class FeedListFragment extends BaseFragment {
         mRecyclerView.setLayoutManager(mLayoutManager);
 
         // specify an adapter (see also next example)
-        mAdapter = new FeedsRecyclerViewAdapter(mDataService.getFeeds().toArray(new FeedItem[0]));
+        mAdapter = new FeedsRecyclerViewAdapter(mDataService.getFeeds().get(0).getAtomics().toArray(new Atomic[0]));
         mAdapter.setTextClickListener(view1 -> raiseAction(Action.named(FEED_LIST_ITEM_CLICKED)));
         mRecyclerView.setAdapter(mAdapter);
         return view;

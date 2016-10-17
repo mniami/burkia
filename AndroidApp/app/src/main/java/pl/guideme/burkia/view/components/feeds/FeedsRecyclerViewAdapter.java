@@ -11,62 +11,15 @@ import android.widget.TextView;
 import com.squareup.picasso.Picasso;
 
 import pl.guideme.burkia.R;
-import pl.guideme.data.vo.FeedItem;
+import pl.guideme.data.vo.Atomic;
 
 public class FeedsRecyclerViewAdapter extends RecyclerView.Adapter<FeedsRecyclerViewAdapter.ViewHolder> {
-    private FeedItem[] mDataSet;
+    private Atomic[] mDataSet;
     private View.OnClickListener clickListener;
     private View.OnClickListener wrappedClickListener;
 
-    // Provide a reference to the views for each data item
-    // Complex data items may need more than one mView per item, and
-    // you provide access to all the views for a data item in a mView holder
-    public static class ViewHolder extends RecyclerView.ViewHolder {
-        // each data item is just a string in this case
-        private TextView mTextView;
-        private ImageView mImageView;
-        private View.OnClickListener clickListener;
-        private Context mContext;
-
-        public ViewHolder(View v) {
-            super(v);
-            mContext = v.getContext().getApplicationContext();
-            mTextView = (TextView)v.findViewById(R.id.main_recycleview_item_textview);
-            mImageView = (ImageView)v.findViewById(R.id.main_recycleview_item_imageview);
-
-        }
-        public void setClickListener(View.OnClickListener clickListener){
-            this.clickListener = clickListener;
-
-            mTextView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    ViewHolder.this.clickListener.onClick(view);
-                }
-            });
-            mImageView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    ViewHolder.this.clickListener.onClick(view);
-                }
-            });
-        }
-    }
-
-    public void setTextClickListener(final View.OnClickListener listener){
-        this.clickListener = listener;
-        this.wrappedClickListener = new View.OnClickListener(){
-            @Override
-            public void onClick(View view) {
-                if (clickListener != null){
-                    clickListener.onClick(view);
-                }
-            }
-        };
-    }
-
     // Provide a suitable constructor (depends on the kind of dataSet)
-    public FeedsRecyclerViewAdapter(FeedItem[] myDataSet) {
+    public FeedsRecyclerViewAdapter(Atomic[] myDataSet) {
         mDataSet = myDataSet;
     }
 
@@ -88,11 +41,11 @@ public class FeedsRecyclerViewAdapter extends RecyclerView.Adapter<FeedsRecycler
     public void onBindViewHolder(ViewHolder holder, int position) {
         // - get element withName your dataSet at this position
         // - replace the contents of the mView withName that element
-        FeedItem feedItem = mDataSet[position];
-        holder.mTextView.setText(feedItem.getName());
+        Atomic atomic = mDataSet[position];
+        holder.mTextView.setText(atomic.getName());
 
         Picasso.with(holder.mContext)
-                .load(feedItem.getImageUrl())
+                .load(atomic.getImageUrl())
                 .into(holder.mImageView);
     }
 
@@ -101,10 +54,46 @@ public class FeedsRecyclerViewAdapter extends RecyclerView.Adapter<FeedsRecycler
     public int getItemCount() {
         return mDataSet.length;
     }
+
     @Override
     public void onDetachedFromRecyclerView(RecyclerView recyclerView) {
         this.clickListener = null;
         this.wrappedClickListener = null;
+    }
+
+    public void setTextClickListener(final View.OnClickListener listener) {
+        this.clickListener = listener;
+        this.wrappedClickListener = view -> {
+            if (clickListener != null) {
+                clickListener.onClick(view);
+            }
+        };
+    }
+
+    // Provide a reference to the views for each data item
+    // Complex data items may need more than one mView per item, and
+    // you provide access to all the views for a data item in a mView holder
+    public static class ViewHolder extends RecyclerView.ViewHolder {
+        // each data item is just a string in this case
+        private TextView mTextView;
+        private ImageView mImageView;
+        private View.OnClickListener clickListener;
+        private Context mContext;
+
+        public ViewHolder(View v) {
+            super(v);
+            mContext = v.getContext().getApplicationContext();
+            mTextView = (TextView) v.findViewById(R.id.main_recycleview_item_textview);
+            mImageView = (ImageView) v.findViewById(R.id.main_recycleview_item_imageview);
+
+        }
+
+        public void setClickListener(View.OnClickListener clickListener) {
+            this.clickListener = clickListener;
+
+            mTextView.setOnClickListener(view -> ViewHolder.this.clickListener.onClick(view));
+            mImageView.setOnClickListener(view -> ViewHolder.this.clickListener.onClick(view));
+        }
     }
 
 }

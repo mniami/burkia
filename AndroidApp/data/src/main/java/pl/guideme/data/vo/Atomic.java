@@ -17,21 +17,17 @@
 
 package pl.guideme.data.vo;
 
-public class FeedItem {
-    private Post mPost;
-    private User mUser;
+import com.google.gson.annotations.SerializedName;
+
+public class Atomic {
+    @SerializedName("values")
     private KeyValuePair[] mValues;
+    @SerializedName("tags")
     private String[] mTags;
+    @SerializedName("imageUrl")
     private String mImageUrl;
+    @SerializedName("name")
     private String mName;
-
-    public Post getPost() {
-        return mPost;
-    }
-
-    public User getUser() {
-        return mUser;
-    }
 
     public KeyValuePair[] getValues() {
         return mValues;
@@ -39,14 +35,6 @@ public class FeedItem {
 
     public String[] getTags() {
         return mTags;
-    }
-
-    public void setPost(Post mPost) {
-        this.mPost = mPost;
-    }
-
-    public void setUser(User mUser) {
-        this.mUser = mUser;
     }
 
     public void setValues(KeyValuePair[] mValues) {

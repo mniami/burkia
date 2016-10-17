@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="restaurants">
+        <item>Restauracja krakuz</item>
+        <item>Kapusciska</item>
+        <item>Barbara</item>
+        <item>MammaMia</item>
+    </string-array>
+    <string-array name="restaurants_image_urls">
+        <item>http://icons.iconarchive.com/icons/custom-icon-design/flatastic-11/256/Map-icon.png</item>
+        <item>http://icons.iconarchive.com/icons/custom-icon-design/flatastic-11/128/Comment-icon.png</item>
+        <item>http://icons.iconarchive.com/icons/custom-icon-design/flatastic-11/128/Download-to-laptop-icon.png</item>
+        <item>http://icons.iconarchive.com/icons/custom-icon-design/flatastic-11/128/Mailbox-receive-message-icon.png</item>
+    </string-array>
+    <string-array name="restaurants_tags">
+        <item>krakuz,restauracja,onet</item>
+        <item>kapusciska,wp</item>
+        <item>interia,barbara</item>
+        <item>mama,mia,belarus</item>
+    </string-array>
+</resources>

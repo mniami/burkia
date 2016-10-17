@@ -3,6 +3,7 @@ package pl.guideme.data.datas;
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EBean;
 
+import java.util.LinkedList;
 import java.util.List;
 
 import pl.guideme.data.api.FeedResponse;
@@ -39,7 +40,12 @@ public class DataService {
     }
 
     public List<FeedResponse> getFeeds() {
-        return (List<FeedResponse>)mMemoryCache.getCachedObject();
+        List<FeedResponse> list = (List<FeedResponse>)mMemoryCache.getCachedObject();
+        if (list == null){
+            list = new LinkedList<>();
+            mMemoryCache.setCachedObject(list);
+        }
+        return list;
     }
 
     private void loadCache() {
