@@ -1,8 +1,15 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="KyobiTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:windowActionBarOverlay">true</item>
+        <item name="android:windowBackground">@color/black</item>
         <!-- Customize your theme here. -->
+    </style>
+
+    <style name="MyActionBarTheme" parent="KyobiTheme">
+        <item name="colorPrimaryDark">@color/transparent</item>
+
     </style>
 
 </resources>

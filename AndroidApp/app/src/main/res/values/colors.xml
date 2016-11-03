@@ -1,5 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <color name="claret">#460025</color>
     <color name="black">#000000</color>
-    <color name="item_title">#040404</color>
+    <color name="white">#FFFFFF</color>
+    <color name="carousel_prize_background">#d4d4d4</color>
+    <color name="gray">#6A6A6A</color>
+    <color name="lightgray">#939393</color>
+    <color name="transparent">#00000000</color>
+    <color name="transparentWhite50">#80FFFFFF</color>
+    <color name="transparentWhite60">#99FFFFFF</color>
+    <color name="transparentWhite70">#B3FFFFFF</color>
+    <color name="transparentWhite80">#CCFFFFFF</color>
+    <color name="transparentWhite90">#E6FFFFFF</color>
+    <color name="transparentBlack50">#80000000</color>
+    <color name="transparentBlack60">#99000000</color>
+    <color name="transparentBlack70">#B3000000</color>
+    <color name="transparentBlack80">#CC000000</color>
+    <color name="transparentBlack90">#E6000000</color>
+    <color name="beige">#efeff3</color>
+    <color name="item_title">@color/black</color>
 </resources>

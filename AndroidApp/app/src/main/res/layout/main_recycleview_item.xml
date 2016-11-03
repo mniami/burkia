@@ -17,7 +17,7 @@
         android:layout_height="wrap_content"
         android:text="New Text"
         android:textSize="@dimen/_20sdp"
-        android:textColor="@color/item_title"
+        android:textColor="@color/beige"
         android:layout_marginTop="@dimen/_5sdp"
         android:id="@+id/main_recycleview_item_textview" />
 

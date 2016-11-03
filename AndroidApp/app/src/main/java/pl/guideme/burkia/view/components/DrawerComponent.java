@@ -7,6 +7,7 @@ import android.view.View;
 
 import org.androidannotations.annotations.EBean;
 
+import pl.guideme.burkia.view.fragments.DrawerFragment_;
 import pl.guideme.componentslib.FragmentAction;
 import pl.guideme.componentslib.FragmentComponentAdapter;
 import pl.guideme.componentslib.ComponentContainer;
@@ -54,7 +55,7 @@ public class DrawerComponent extends FragmentComponentAdapter {
     }
 
     public void show() {
-        final DrawerFragment drawerFragment = new DrawerFragment();
+        final DrawerFragment drawerFragment = new DrawerFragment_();
         drawerFragment.attachToComponent(this);
         mFragmentComponent.change(drawerFragment, false);
     }

@@ -8,18 +8,19 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.squareup.picasso.Picasso;
-
 import pl.guideme.burkia.R;
+import pl.guideme.data.util.ImageLoader;
 import pl.guideme.data.vo.Atomic;
 
 public class FeedsRecyclerViewAdapter extends RecyclerView.Adapter<FeedsRecyclerViewAdapter.ViewHolder> {
+    private ImageLoader mImageLoaders;
     private Atomic[] mDataSet;
     private View.OnClickListener clickListener;
     private View.OnClickListener wrappedClickListener;
 
     // Provide a suitable constructor (depends on the kind of dataSet)
-    public FeedsRecyclerViewAdapter(Atomic[] myDataSet) {
+    public FeedsRecyclerViewAdapter(ImageLoader imageLoaders, Atomic[] myDataSet) {
+        mImageLoaders = imageLoaders;
         mDataSet = myDataSet;
     }
 
@@ -43,10 +44,7 @@ public class FeedsRecyclerViewAdapter extends RecyclerView.Adapter<FeedsRecycler
         // - replace the contents of the mView withName that element
         Atomic atomic = mDataSet[position];
         holder.mTextView.setText(atomic.getName());
-
-        Picasso.with(holder.mContext)
-                .load(atomic.getImageUrl())
-                .into(holder.mImageView);
+        mImageLoaders.load(atomic.getImageUrl(), holder.mContext, holder.mImageView);
     }
 
     // Return the size of your dataset (invoked by the layout manager)
@@ -79,9 +77,11 @@ public class FeedsRecyclerViewAdapter extends RecyclerView.Adapter<FeedsRecycler
         private ImageView mImageView;
         private View.OnClickListener clickListener;
         private Context mContext;
+        private View mView;
 
         public ViewHolder(View v) {
             super(v);
+            mView = v;
             mContext = v.getContext().getApplicationContext();
             mTextView = (TextView) v.findViewById(R.id.main_recycleview_item_textview);
             mImageView = (ImageView) v.findViewById(R.id.main_recycleview_item_imageview);
@@ -93,6 +93,7 @@ public class FeedsRecyclerViewAdapter extends RecyclerView.Adapter<FeedsRecycler
 
             mTextView.setOnClickListener(view -> ViewHolder.this.clickListener.onClick(view));
             mImageView.setOnClickListener(view -> ViewHolder.this.clickListener.onClick(view));
+            mView.setOnClickListener(view -> ViewHolder.this.clickListener.onClick(view));
         }
     }
 

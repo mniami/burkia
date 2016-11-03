@@ -10,14 +10,15 @@ import android.widget.AdapterView;
 
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EBean;
+import org.androidannotations.annotations.EFragment;
 
 import java.lang.ref.WeakReference;
 
 import pl.guideme.data.logs.Log;
 
-@EBean
+@EFragment
 public class BaseFragment extends Fragment {
-    private static final Log log = Log.withName("BaseFragment");
+    protected Log log = Log.empty();
 
     protected WeakReference<Component> mReferencedComponent;
     @Bean

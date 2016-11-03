@@ -24,7 +24,7 @@ public class FeedListComponent extends FragmentComponentAdapter {
         toolbarComponent.animateHamburgerCross();
         FragmentComponent fragmentComponent = mContainer.get(FragmentComponent.class);
 
-        FeedListFragment fragment = FeedListFragment_.getInstance_(getContext());
+        FeedListFragment fragment = FeedListFragment_.builder().build();
         fragment.attachToComponent(this);
         fragmentComponent.change(fragment, true);
     }

@@ -44,4 +44,7 @@ public class Log {
         android.util.Log.e(tag, t.toString());
     }
 
+    public static Log empty() {
+        return new Log("empty");
+    }
 }

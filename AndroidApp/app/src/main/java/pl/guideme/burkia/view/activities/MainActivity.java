@@ -13,6 +13,8 @@ import pl.guideme.burkia.R;
 import pl.guideme.burkia.view.components.DrawerComponent_;
 import pl.guideme.burkia.view.components.FeedListComponent;
 import pl.guideme.burkia.view.components.FeedListComponent_;
+import pl.guideme.burkia.view.components.FluffyAvatarComponent;
+import pl.guideme.burkia.view.components.FluffyAvatarComponent_;
 import pl.guideme.burkia.view.components.FragmentComponent_;
 import pl.guideme.burkia.view.components.ToolbarComponent_;
 import pl.guideme.componentslib.Activity;
@@ -38,11 +40,7 @@ public class MainActivity extends Activity {
                     .setTitle("Really Exit?")
                     .setMessage("Are you sure you want to exit?")
                     .setNegativeButton(android.R.string.no, null)
-                    .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface arg0, int arg1) {
-                            MainActivity.super.onBackPressed();
-                        }
-                    }).create().show();
+                    .setPositiveButton(android.R.string.yes, (arg0, arg1) -> MainActivity.super.onBackPressed()).create().show();
         } else {
             getSupportFragmentManager().popBackStack();
         }
@@ -63,7 +61,7 @@ public class MainActivity extends Activity {
         onActivityAction(ActivityAction.Created);
 
         if (savedInstanceState == null || savedInstanceState.isEmpty()) {
-            mComponentContainer.get(FeedListComponent.class).show();
+            mComponentContainer.get(FluffyAvatarComponent.class).show();
         }
     }
 
@@ -96,8 +94,8 @@ public class MainActivity extends Activity {
                 FeedListComponent_.getInstance_(getApplicationContext()),
                 ToolbarComponent_.getInstance_(getApplicationContext()),
                 FragmentComponent_.getInstance_(getApplicationContext()),
-                DrawerComponent_.getInstance_(getApplicationContext())
-        );
+                DrawerComponent_.getInstance_(getApplicationContext()),
+                FluffyAvatarComponent_.getInstance_(getApplicationContext()));
     }
 
     private void onActivityAction(ActivityAction activityAction) {

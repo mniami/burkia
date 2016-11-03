@@ -10,18 +10,23 @@ import android.view.ViewGroup;
 
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EBean;
+import org.androidannotations.annotations.EFragment;
+
+import java.util.List;
 
 import pl.guideme.burkia.R;
 import pl.guideme.componentslib.Action;
 import pl.guideme.componentslib.BaseFragment;
 import pl.guideme.burkia.view.components.feeds.FeedsRecyclerViewAdapter;
+import pl.guideme.data.util.ImageLoader;
+import pl.guideme.data.api.FeedResponse;
 import pl.guideme.data.datas.DataService;
 import pl.guideme.data.logs.Log;
 import pl.guideme.data.vo.Atomic;
 
-@EBean
+@EFragment
 public class FeedListFragment extends BaseFragment {
-    private static final Log log = Log.withName("FeedListFragment");
+    private static final String FEED_LIST_FRAGMENT = "FeedListFragment";
     public static final int FEED_LIST_ITEM_CLICKED = 1;
 
     protected RecyclerView mRecyclerView;
@@ -30,12 +35,15 @@ public class FeedListFragment extends BaseFragment {
 
     @Bean
     protected DataService mDataService;
+    @Bean
+    protected ImageLoader mImageLoader;
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
+        log = Log.withName(FEED_LIST_FRAGMENT);
         log.fine(()->"onCreateView called");
-        View view = inflater.inflate(R.layout.fragment_main, container, false);
+        View view = inflater.inflate(R.layout.feed_list_layout, container, false);
 
         mRecyclerView = (RecyclerView) view.findViewById(R.id.m_recycler_view);
         // use this setting to improve performance if you know that changes
@@ -47,9 +55,13 @@ public class FeedListFragment extends BaseFragment {
         mRecyclerView.setLayoutManager(mLayoutManager);
 
         // specify an adapter (see also next example)
-        mAdapter = new FeedsRecyclerViewAdapter(mDataService.getFeeds().get(0).getAtomics().toArray(new Atomic[0]));
+        mAdapter = new FeedsRecyclerViewAdapter(mImageLoader, toArray(mDataService.getFeeds()));
         mAdapter.setTextClickListener(view1 -> raiseAction(Action.named(FEED_LIST_ITEM_CLICKED)));
         mRecyclerView.setAdapter(mAdapter);
         return view;
+    }
+
+    private Atomic[] toArray(List<FeedResponse> feeds) {
+        return feeds.get(0).getAtomics().toArray(new Atomic[0]);
     }
 }

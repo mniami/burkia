@@ -37,7 +37,7 @@ public class FragmentComponent extends FragmentComponentAdapter {
             log.fine(()->"Activity is not visible, change fragment canceled.");
             return;
         }
-        String backStackTag;
+        final String backStackTag;
         if (addToBackStack) {
             backStackTag = fragment.getClass().getName();
         } else {
@@ -48,7 +48,7 @@ public class FragmentComponent extends FragmentComponentAdapter {
 
         FragmentTransaction transaction = mActivity.getSupportFragmentManager()
                 .beginTransaction()
-                .setCustomAnimations(R.anim.animation_enter, R.anim.animation_exit)
+                .setCustomAnimations(R.anim.animation_enter, R.anim.animation_exit, R.anim.animation_enter_pop, R.anim.animation_exit_pop)
                 .replace(R.id.fragment_container, fragment);
         if (backStackTag != null) {
             transaction.addToBackStack(backStackTag);
